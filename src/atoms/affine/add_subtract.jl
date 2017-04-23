@@ -6,9 +6,9 @@
 # Please read expressions.jl first.
 #############################################################################
 
-import Base.+, Base.-, Base.(.+), Base.(.-)
+import Base.+, Base.-, Base.(.+), Base.(.-), Base.broadcast
 export +, -, .+, .-
-export sign, curvature, monotonicity, evaluate
+export sign, curvature, monotonicity, evaluate, broadcast
 
 ### Unary Negation
 
@@ -123,9 +123,9 @@ end
 -(x::Value, y::AbstractExpr) = Constant(x) + (-y)
 -(x::AbstractExpr, y::Value) = x + Constant(-y)
 
-.+(x::AbstractExpr, y::AbstractExpr) = AdditionAtom(x, y)
-.+(x::Value, y::AbstractExpr) = AdditionAtom(Constant(x), y)
-.+(x::AbstractExpr, y::Value) = AdditionAtom(x, Constant(y))
-.-(x::AbstractExpr, y::AbstractExpr) = x + (-y)
-.-(x::Value, y::AbstractExpr) = Constant(x) + (-y)
-.-(x::AbstractExpr, y::Value) = x + Constant(-y)
+broadcast(::typeof(+), x::AbstractExpr, y::AbstractExpr) = AdditionAtom(x, y)
+broadcast(::typeof(+), x::Value, y::AbstractExpr) = AdditionAtom(Constant(x), y)
+broadcast(::typeof(+), x::AbstractExpr, y::Value) = AdditionAtom(x, Constant(y))
+broadcast(::typeof(-), x::AbstractExpr, y::AbstractExpr) = x + (-y)
+broadcast(::typeof(-), x::Value, y::AbstractExpr) = Constant(x) + (-y)
+broadcast(::typeof(-), x::AbstractExpr, y::Value) = x + Constant(-y)
