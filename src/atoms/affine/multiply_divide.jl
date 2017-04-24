@@ -6,8 +6,8 @@
 # Please read expressions.jl first.
 #############################################################################
 
-import Base.*, Base.(.*), Base./, Base.(./), Base.broadcast
-export *, .*, /, ./, broadcast
+import Base.broadcast
+export broadcast
 export sign, monotonicity, curvature, evaluate, conic_form!
 
 ### Scalar and matrix multiplication
@@ -178,7 +178,7 @@ function conic_form!(x::DotMultiplyAtom, unique_conic_forms::UniqueConicForms)
   return get_conic_form(unique_conic_forms, x)
 end
 
-broadcast(::typeof(*), x::Constant, y::AbstractExpr)
+function broadcast(::typeof(*), x::Constant, y::AbstractExpr)
   if x.size == (1, 1) || y.size == (1, 1)
     return x * y
   elseif size(y,1) < size(x,1) && size(y,1) == 1
@@ -192,7 +192,7 @@ end
 broadcast(::typeof(*), y::AbstractExpr, x::Constant) = .*(x,y)
 
 # if neither is a constant it's not DCP, but might be nice to support anyway for eg MultiConvex
-broadcast(::typeof(*), x::AbstractExpr, y::AbstractExpr)
+function broadcast(::typeof(*), x::AbstractExpr, y::AbstractExpr)
   if x.size == (1, 1) || y.size == (1, 1)
     return x * y
   elseif vexity(x) == ConstVexity()

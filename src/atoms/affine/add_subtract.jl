@@ -6,9 +6,9 @@
 # Please read expressions.jl first.
 #############################################################################
 
-import Base.+, Base.-, Base.(.+), Base.(.-), Base.broadcast
-export +, -, .+, .-
-export sign, curvature, monotonicity, evaluate, broadcast
+import Base.broadcast
+export +, -, broadcast
+export sign, curvature, monotonicity, evaluate
 
 ### Unary Negation
 
