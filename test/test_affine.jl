@@ -118,7 +118,7 @@ facts("Affine Atoms") do
                 [x' >= r_2, x >= r, x''' >= r_2, x'' >= r])
     @fact vexity(p) --> AffineVexity()
     solve!(p)
-    s = sum(max(r, r_2')) * 3
+    s = sum(max.(r, r_2')) * 3
     @fact p.optval --> roughly(s, TOL)
     @fact evaluate(c * x' * d + d' * x * c' + (c * x''''' * d)')[1] --> roughly(s, TOL)
   end
@@ -309,7 +309,7 @@ facts("Affine Atoms") do
     @fact vexity(p) --> AffineVexity()
     solve!(p)
     @fact p.optval --> roughly(10, TOL)
-    @fact all(abs(evaluate(diagm(x)) - diagm([1; 2; 3; 4])) .<= TOL) --> true
+    @fact all(abs.(evaluate(diagm(x)) - diagm([1; 2; 3; 4])) .<= TOL) --> true
 
     x = Variable(3)
     c = [1; 2; 3]
@@ -392,7 +392,7 @@ facts("Affine Atoms") do
     if p.solution.has_dual
         println("Solution object has dual value, checking for dual correctness.")
         @fact p.constraints[1].dual --> roughly(0, TOL)
-        @fact abs(p.constraints[2].dual) --> roughly(1, TOL)
+        @fact abs.(p.constraints[2].dual) --> roughly(1, TOL)
     end
 
     x = Variable(2)
@@ -402,7 +402,7 @@ facts("Affine Atoms") do
     if p.solution.has_dual
         println("Solution object has dual value, checking for dual correctness.")
         dual = [4/3; 4/3]
-        @fact all(abs(p.constraints[1].dual - dual) .<= TOL) --> true
+        @fact all(abs.(p.constraints[1].dual - dual) .<= TOL) --> true
     end
   end
 
