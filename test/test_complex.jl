@@ -103,7 +103,7 @@ facts("Optimization with complex variables") do
     solve!(p)
     # test that X is approximately equal to posA:
     l,v = eig(A)
-    posA = v*diagm(max(l,0))*v'
+    posA = v*diagm(max.(l,0))*v'
 
     real_diff = real(x.value) - real(posA);
     imag_diff = imag(x.value) - imag(posA);

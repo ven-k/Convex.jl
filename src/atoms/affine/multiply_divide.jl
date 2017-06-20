@@ -189,7 +189,7 @@ function broadcast(::typeof(*), x::Constant, y::AbstractExpr)
     return DotMultiplyAtom(x, y)
   end
 end
-broadcast(::typeof(*), y::AbstractExpr, x::Constant) = .*(x,y)
+broadcast(::typeof(*), y::AbstractExpr, x::Constant) = DotMultiplyAtom(x, y)
 
 # if neither is a constant it's not DCP, but might be nice to support anyway for eg MultiConvex
 function broadcast(::typeof(*), x::AbstractExpr, y::AbstractExpr)
