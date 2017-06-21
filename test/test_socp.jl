@@ -93,11 +93,11 @@ facts("SOCP Atoms") do
     A = [1 2; 2 1; 3 4]
     b = [2; 3; 4]
     expr = A * x + b
-    p = minimize(sum(dot(^)(expr,2)))
+    p = minimize(sum(dot(^)(expr,2))) # elementwise ^ 
     @fact vexity(p) --> ConvexVexity()
     solve!(p)
     @fact p.optval --> roughly(0.42105, TOL)
-    @fact evaluate(sum(dot(^)(expr,2))) --> roughly(0.42105, TOL)
+    @fact evaluate(sum(expr^2)) --> roughly(0.42105, TOL)
 
     p = minimize(sum(dot(*)(expr, expr)))
     @fact vexity(p) --> ConvexVexity()
@@ -202,7 +202,7 @@ facts("SOCP Atoms") do
     @fact p.optval --> roughly(-2.144087, TOL)
     @fact sum(evaluate(x' * v)) --> roughly(-2.144087, TOL)
     @fact evaluate(norm(x, q)) --> roughly(1, TOL)
-    @fact sum(evaluate(x' * v)) --> roughly(-sum(abs(v).^qs)^(1/qs), TOL);
+    @fact sum(evaluate(x' * v)) --> roughly(-sum(abs.(v).^qs)^(1/qs), TOL);
   end
 
   context("rational norm atom sum") do
@@ -220,7 +220,7 @@ facts("SOCP Atoms") do
     margins = A * x_opt - b;
     qs = q / (q - 1);  # Conjugate
     denom = sum(abs.(margins).^q)^(1/qs);
-    g = x_opt + A' * (abs.(margins).^(q-1) .* sign(margins)) / denom;
+    g = x_opt + A' * (abs.(margins).^(q-1) .* sign.(margins)) / denom;
     @fact p.optval --> roughly(1.7227, TOL);
     @fact norm(g, 2)^2 --> roughly(0, TOL);
   end
