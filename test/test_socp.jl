@@ -93,13 +93,13 @@ facts("SOCP Atoms") do
     A = [1 2; 2 1; 3 4]
     b = [2; 3; 4]
     expr = A * x + b
-    p = minimize(sum(dot(^)(expr,2))) # elementwise ^ 
+    p = minimize(sum(dot(^)(expr,2))) # elementwise ^
     @fact vexity(p) --> ConvexVexity()
     solve!(p)
     @fact p.optval --> roughly(0.42105, TOL)
     @fact evaluate(sum(expr^2)) --> roughly(0.42105, TOL)
 
-    p = minimize(sum(dot(*)(expr, expr)))
+    p = minimize(sum(dot(*)(expr, expr))) # elementwise *
     @fact vexity(p) --> ConvexVexity()
     solve!(p)
     @fact p.optval --> roughly(0.42105, TOL)
