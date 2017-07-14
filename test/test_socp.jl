@@ -99,11 +99,11 @@ facts("SOCP Atoms") do
     @fact p.optval --> roughly(0.42105, TOL)
     @fact evaluate(sum(expr^2)) --> roughly(0.42105, TOL)
 
-    p = minimize(sum(dot(*)(expr, expr))) # elementwise *
+    p = minimize(sum(expr.*expr))
     @fact vexity(p) --> ConvexVexity()
     solve!(p)
     @fact p.optval --> roughly(0.42105, TOL)
-    @fact evaluate(sum(dot(*)(expr, expr))) --> roughly(0.42105, TOL)
+    @fact evaluate(sum(expr.*expr)) --> roughly(0.42105, TOL)
   end
 
   context("inv pos atom") do

@@ -21,6 +21,10 @@ include("solver_info.jl")
 include("problems.jl")
 include("solution.jl")
 
+### make .*, ./, .^ work on v0.6
+
+include("utilities/broadcast.jl")
+
 ### affine atoms
 include("atoms/affine/add_subtract.jl")
 include("atoms/affine/multiply_divide.jl")
