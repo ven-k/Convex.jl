@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Quick Tutorial · Convex.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link href="../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>Convex.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../">Home</a></li><li><a class="toctext" href="../installation/">Installation</a></li><li class="current"><a class="toctext" href>Quick Tutorial</a><ul class="internal"></ul></li><li><a class="toctext" href="../types/">Basic Types</a></li><li><a class="toctext" href="../operations/">Supported Operations</a></li><li><a class="toctext" href="../examples/">Examples</a></li><li><a class="toctext" href="../complex-domain_optimization/">Complex-domain Optimization</a></li><li><a class="toctext" href="../solvers/">Solvers</a></li><li><a class="toctext" href="../faq/">FAQ</a></li><li><a class="toctext" href="../loop/">Optimizing in a Loop</a></li><li><a class="toctext" href="../advanced/">Advanced</a></li><li><a class="toctext" href="../contributing/">Contributing</a></li><li><a class="toctext" href="../credits/">Credits</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href>Quick Tutorial</a></li></ul><a class="edit-page" href="https://github.com/JuliaOpt/Convex.jl/blob/master/docs/src/quick_tutorial.md#L"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>Quick Tutorial</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="Quick-Tutorial-1" href="#Quick-Tutorial-1">Quick Tutorial</a></h1><p>Consider a constrained least squares problem</p><div>\[\begin{aligned}
+\begin{array}{ll}
+\mbox{minimize} &amp; \|Ax - b\|_2^2 \\
+\mbox{subject to} &amp; x \geq 0
+\end{array}
+\end{aligned}\]</div><p>with variable <span>$x\in \mathbf{R}^{n}$</span>, and problem data <span>$A \in \mathbf{R}^{m \times n}$</span>, <span>$b \in \mathbf{R}^{m}$</span>.</p><p>This problem can be solved in Convex.jl as follows: :</p><pre><code class="language-julia-repl">julia&gt; # Make the Convex.jl module available
+       using Convex, SCS
+
+julia&gt; # Generate random problem data
+       m = 4;  n = 5
+5
+
+julia&gt; A = randn(m, n); b = randn(m, 1)
+4×1 Array{Float64,2}:
+ -0.05699456953918558
+ -0.5090210349153167
+ -0.11532484409809556
+  0.20205400557871078
+
+julia&gt; # Create a (column vector) variable of size n x 1.
+       x = Variable(n)
+Variable of
+size: (5, 1)
+sign: NoSign()
+vexity: AffineVexity()
+
+julia&gt; # The problem is to minimize ||Ax - b||^2 subject to x &gt;= 0
+       # This can be done by: minimize(objective, constraints)
+       problem = minimize(sumsquares(A * x - b), [x &gt;= 0])
+Problem:
+minimize AbstractExpr with
+head: qol_elem
+size: (1, 1)
+sign: Positive()
+vexity: ConvexVexity()
+
+subject to
+Constraint:
+&gt;= constraint
+lhs: Variable of
+size: (5, 1)
+sign: NoSign()
+vexity: AffineVexity()
+rhs: 0
+vexity: AffineVexity()
+current status: not yet solved
+
+julia&gt; # Solve the problem by calling solve!
+       solve!(problem, SCSSolver())
+
+julia&gt; # Check the status of the problem
+       problem.status # :Optimal, :Infeasible, :Unbounded etc.
+:Optimal
+
+julia&gt; # Get the optimum value
+       problem.optval
+0.09701580969473565</code></pre><footer><hr/><a class="previous" href="../installation/"><span class="direction">Previous</span><span class="title">Installation</span></a><a class="next" href="../types/"><span class="direction">Next</span><span class="title">Basic Types</span></a></footer></article></body></html>
