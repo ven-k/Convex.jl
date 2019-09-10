@@ -13,37 +13,34 @@ julia&gt; # Generate random problem data
 
 julia&gt; A = randn(m, n); b = randn(m, 1)
 4×1 Array{Float64,2}:
-  0.14668643948581572
- -0.27521940430274333
-  1.0832225663654205
- -0.9769263276034266
+ -0.6091404757554894
+  2.055000684192258
+  1.7074456079228393
+ -0.028771187823892246
 
 julia&gt; # Create a (column vector) variable of size n x 1.
        x = Variable(n)
-Variable of
+Variable
 size: (5, 1)
-sign: NoSign()
-vexity: AffineVexity()
+sign: real
+vexity: affine
+id: 814…939
 
 julia&gt; # The problem is to minimize ||Ax - b||^2 subject to x &gt;= 0
        # This can be done by: minimize(objective, constraints)
        problem = minimize(sumsquares(A * x - b), [x &gt;= 0])
-Problem:
-minimize AbstractExpr with
-head: qol_elem
-size: (1, 1)
-sign: Positive()
-vexity: ConvexVexity()
-
+minimize
+└─ qol_elem (convex; positive)
+   ├─ norm2 (convex; positive)
+   │  └─ + (affine; real)
+   │     ├─ …
+   │     └─ …
+   └─ [1.0]
 subject to
-Constraint:
-&gt;= constraint
-lhs: Variable of
-size: (5, 1)
-sign: NoSign()
-vexity: AffineVexity()
-rhs: 0
-vexity: AffineVexity()
+└─ &gt;= constraint (affine)
+   ├─ 5-element real variable (id: 814…939)
+   └─ 0
+
 current status: not yet solved
 
 julia&gt; # Solve the problem by calling solve!
@@ -55,4 +52,4 @@ julia&gt; # Check the status of the problem
 
 julia&gt; # Get the optimum value
        problem.optval
-0.8435907465018618</code></pre><footer><hr/><a class="previous" href="../installation/"><span class="direction">Previous</span><span class="title">Installation</span></a><a class="next" href="../types/"><span class="direction">Next</span><span class="title">Basic Types</span></a></footer></article></body></html>
+2.5055804071363177</code></pre><footer><hr/><a class="previous" href="../installation/"><span class="direction">Previous</span><span class="title">Installation</span></a><a class="next" href="../types/"><span class="direction">Next</span><span class="title">Basic Types</span></a></footer></article></body></html>
