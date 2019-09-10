@@ -13,10 +13,10 @@ julia&gt; # Generate random problem data
 
 julia&gt; A = randn(m, n); b = randn(m, 1)
 4×1 Array{Float64,2}:
- -0.6091404757554894
-  2.055000684192258
-  1.7074456079228393
- -0.028771187823892246
+ -0.7038246523962634
+ -1.307325166986
+  0.5692286252505846
+  0.3942869245510888
 
 julia&gt; # Create a (column vector) variable of size n x 1.
        x = Variable(n)
@@ -24,7 +24,7 @@ Variable
 size: (5, 1)
 sign: real
 vexity: affine
-id: 814…939
+id: 142…876
 
 julia&gt; # The problem is to minimize ||Ax - b||^2 subject to x &gt;= 0
        # This can be done by: minimize(objective, constraints)
@@ -38,7 +38,7 @@ minimize
    └─ [1.0]
 subject to
 └─ &gt;= constraint (affine)
-   ├─ 5-element real variable (id: 814…939)
+   ├─ 5-element real variable (id: 142…876)
    └─ 0
 
 current status: not yet solved
@@ -52,4 +52,4 @@ julia&gt; # Check the status of the problem
 
 julia&gt; # Get the optimum value
        problem.optval
-2.5055804071363177</code></pre><footer><hr/><a class="previous" href="../installation/"><span class="direction">Previous</span><span class="title">Installation</span></a><a class="next" href="../types/"><span class="direction">Next</span><span class="title">Basic Types</span></a></footer></article></body></html>
+2.655243693998071</code></pre><footer><hr/><a class="previous" href="../installation/"><span class="direction">Previous</span><span class="title">Installation</span></a><a class="next" href="../types/"><span class="direction">Next</span><span class="title">Basic Types</span></a></footer></article></body></html>
