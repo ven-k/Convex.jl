@@ -51,18 +51,18 @@ Variable
 size: (1, 1)
 sign: real
 vexity: affine
-id: 753…241
+id: 171…030
 
 julia&gt; p = maximize( log(x), x &gt;= 1, x &lt;= 3 )
 maximize
 └─ log (concave; real)
-   └─ real variable (id: 753…241)
+   └─ real variable (id: 171…030)
 subject to
 ├─ &gt;= constraint (affine)
-│  ├─ real variable (id: 753…241)
+│  ├─ real variable (id: 171…030)
 │  └─ 1
 └─ &lt;= constraint (affine)
-   ├─ real variable (id: 753…241)
+   ├─ real variable (id: 171…030)
    └─ 3
 
 current status: not yet solved
@@ -70,19 +70,19 @@ current status: not yet solved
 julia&gt; for leaf in AbstractTrees.Leaves(p)
            println(&quot;Here&#39;s a leaf: $(summary(leaf))&quot;)
        end
-Here&#39;s a leaf: real variable (id: 753…241)
-Here&#39;s a leaf: real variable (id: 753…241)
+Here&#39;s a leaf: real variable (id: 171…030)
+Here&#39;s a leaf: real variable (id: 171…030)
 Here&#39;s a leaf: constant (constant; positive)
-Here&#39;s a leaf: real variable (id: 753…241)
+Here&#39;s a leaf: real variable (id: 171…030)
 Here&#39;s a leaf: constant (constant; positive)</code></pre><p>We can also iterate over the problem in various orders. The following descriptions are taken from the AbstractTrees.jl docstrings, which have more information.</p><h3><a class="nav-anchor" id="PostOrderDFS-1" href="#PostOrderDFS-1">PostOrderDFS</a></h3><p>Iterator to visit the nodes of a tree, guaranteeing that children will be visited before their parents.</p><pre><code class="language-julia-repl">julia&gt; for (i, node) in enumerate(AbstractTrees.PostOrderDFS(p))
            println(&quot;Here&#39;s node $i via PostOrderDFS: $(summary(node))&quot;)
        end
-Here&#39;s node 1 via PostOrderDFS: real variable (id: 753…241)
+Here&#39;s node 1 via PostOrderDFS: real variable (id: 171…030)
 Here&#39;s node 2 via PostOrderDFS: log (concave; real)
-Here&#39;s node 3 via PostOrderDFS: real variable (id: 753…241)
+Here&#39;s node 3 via PostOrderDFS: real variable (id: 171…030)
 Here&#39;s node 4 via PostOrderDFS: constant (constant; positive)
 Here&#39;s node 5 via PostOrderDFS: &gt;= constraint (affine)
-Here&#39;s node 6 via PostOrderDFS: real variable (id: 753…241)
+Here&#39;s node 6 via PostOrderDFS: real variable (id: 171…030)
 Here&#39;s node 7 via PostOrderDFS: constant (constant; positive)
 Here&#39;s node 8 via PostOrderDFS: &lt;= constraint (affine)
 Here&#39;s node 9 via PostOrderDFS: 2-element Array{Constraint,1}
@@ -91,23 +91,23 @@ Here&#39;s node 10 via PostOrderDFS: Problem</code></pre><h3><a class="nav-ancho
        end
 Here&#39;s node 1 via PreOrderDFS: Problem
 Here&#39;s node 2 via PreOrderDFS: log (concave; real)
-Here&#39;s node 3 via PreOrderDFS: real variable (id: 753…241)
+Here&#39;s node 3 via PreOrderDFS: real variable (id: 171…030)
 Here&#39;s node 4 via PreOrderDFS: 2-element Array{Constraint,1}
 Here&#39;s node 5 via PreOrderDFS: &gt;= constraint (affine)
-Here&#39;s node 6 via PreOrderDFS: real variable (id: 753…241)
+Here&#39;s node 6 via PreOrderDFS: real variable (id: 171…030)
 Here&#39;s node 7 via PreOrderDFS: constant (constant; positive)
 Here&#39;s node 8 via PreOrderDFS: &lt;= constraint (affine)
-Here&#39;s node 9 via PreOrderDFS: real variable (id: 753…241)
+Here&#39;s node 9 via PreOrderDFS: real variable (id: 171…030)
 Here&#39;s node 10 via PreOrderDFS: constant (constant; positive)</code></pre><h3><a class="nav-anchor" id="StatelessBFS-1" href="#StatelessBFS-1">StatelessBFS</a></h3><p>Iterator to visit the nodes of a tree, guaranteeing that all nodes of a level will be visited before their children.</p><pre><code class="language-julia-repl">julia&gt; for (i, node) in enumerate(AbstractTrees.StatelessBFS(p))
            println(&quot;Here&#39;s node $i via StatelessBFS: $(summary(node))&quot;)
        end
 Here&#39;s node 1 via StatelessBFS: Problem
 Here&#39;s node 2 via StatelessBFS: log (concave; real)
 Here&#39;s node 3 via StatelessBFS: 2-element Array{Constraint,1}
-Here&#39;s node 4 via StatelessBFS: real variable (id: 753…241)
+Here&#39;s node 4 via StatelessBFS: real variable (id: 171…030)
 Here&#39;s node 5 via StatelessBFS: &gt;= constraint (affine)
 Here&#39;s node 6 via StatelessBFS: &lt;= constraint (affine)
-Here&#39;s node 7 via StatelessBFS: real variable (id: 753…241)
+Here&#39;s node 7 via StatelessBFS: real variable (id: 171…030)
 Here&#39;s node 8 via StatelessBFS: constant (constant; positive)
-Here&#39;s node 9 via StatelessBFS: real variable (id: 753…241)
+Here&#39;s node 9 via StatelessBFS: real variable (id: 171…030)
 Here&#39;s node 10 via StatelessBFS: constant (constant; positive)</code></pre><footer><hr/><a class="previous" href="../loop/"><span class="direction">Previous</span><span class="title">Optimizing in a Loop</span></a><a class="next" href="../problem_depot/"><span class="direction">Next</span><span class="title">Problem Depot</span></a></footer></article></body></html>
