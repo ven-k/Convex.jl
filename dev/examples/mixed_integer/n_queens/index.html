@@ -7,7 +7,7 @@ n = 8</code></pre><pre><code class="language-none">8</code></pre><p>We encode th
 size: (8, 8)
 sign: real
 vexity: affine
-id: 974…280</code></pre><p>Now we impose the constraints: at most one queen on any anti-diagonal, at most one queen on any diagonal, and we must have exactly one queen per row and per column.</p><pre><code class="language-julia"># At most one queen on any anti-diagonal
+id: 981…644</code></pre><p>Now we impose the constraints: at most one queen on any anti-diagonal, at most one queen on any diagonal, and we must have exactly one queen per row and per column.</p><pre><code class="language-julia"># At most one queen on any anti-diagonal
 constr = Constraint[sum(antidiag(x, k)) &lt;= 1 for k = -n+2:n-2]
 # At most one queen on any diagonal
 constr += Constraint[sum(diag(x, k)) &lt;= 1 for k = -n+2:n-2]

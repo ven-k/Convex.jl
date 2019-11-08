@@ -10,7 +10,7 @@ e = 0;
   p = minimize(e, x&gt;=1);
 end
 @time solve!(p, ECOSSolver())</code></pre><pre><code class="language-none">Summation example
-  0.037479 seconds (4.64 k allocations: 11.763 MiB, 51.52% gc time)
+  0.016449 seconds (4.64 k allocations: 11.763 MiB)
 ----------------------------------------------------------------------------
 	SCS v2.0.2 - Splitting Conic Solver
 	(c) Brendan O&#39;Donoghue, Stanford University, 2012-2017
@@ -21,18 +21,18 @@ acceleration_lookback = 20, rho_x = 1.00e-03
 Variables n = 9, constraints m = 75
 Cones:	primal zero / dual free vars: 39
 	sd vars: 36, sd blks: 1
-Setup time: 1.83e-04s
+Setup time: 2.00e-04s
 ----------------------------------------------------------------------------
  Iter | pri res | dua res | rel gap | pri obj | dua obj | kap/tau | time (s)
 ----------------------------------------------------------------------------
-     0| 1.90e+00  1.99e+01  9.76e-01 -3.72e+00  3.64e+01  6.63e-15  2.63e-04
-    20| 4.24e-09  2.47e-08  1.10e-09  2.13e-10  1.31e-09  2.25e-17  1.24e-03
+     0| 1.90e+00  1.99e+01  9.76e-01 -3.72e+00  3.64e+01  6.63e-15  2.61e-04
+    20| 4.24e-09  2.47e-08  1.10e-09  2.13e-10  1.31e-09  2.25e-17  1.27e-03
 ----------------------------------------------------------------------------
 Status: Solved
-Timing: Solve time: 1.25e-03s
-	Lin-sys: avg # CG iterations: 1.71, avg solve time: 3.56e-06s
-	Cones: avg projection time: 4.54e-05s
-	Acceleration: avg step time: 5.84e-06s
+Timing: Solve time: 1.27e-03s
+	Lin-sys: avg # CG iterations: 1.71, avg solve time: 2.97e-06s
+	Cones: avg projection time: 4.62e-05s
+	Acceleration: avg step time: 6.35e-06s
 ----------------------------------------------------------------------------
 Error metrics:
 dist(s, K) = 2.8311e-09, dist(y, K*) = 2.9461e-09, s&#39;y/|s||y| = -1.8212e-11
@@ -53,18 +53,18 @@ Variables n = 6, constraints m = 17
 Cones:	primal zero / dual free vars: 2
 	linear vars: 8
 	soc vars: 7, soc blks: 2
-Setup time: 4.73e-05s
+Setup time: 3.56e-05s
 ----------------------------------------------------------------------------
  Iter | pri res | dua res | rel gap | pri obj | dua obj | kap/tau | time (s)
 ----------------------------------------------------------------------------
-     0| 3.46e+19  2.62e+19  1.00e+00 -6.54e+19  7.73e+18  1.06e+19  2.71e-05
-    60| 2.16e-08  5.74e-08  7.46e-08  6.32e-03  6.32e-03  1.21e-16  2.37e-04
+     0| 3.46e+19  2.62e+19  1.00e+00 -6.54e+19  7.73e+18  1.06e+19  2.35e-05
+    60| 2.16e-08  5.74e-08  7.46e-08  6.32e-03  6.32e-03  1.21e-16  2.31e-04
 ----------------------------------------------------------------------------
 Status: Solved
-Timing: Solve time: 2.38e-04s
-	Lin-sys: avg # CG iterations: 2.54, avg solve time: 7.67e-07s
-	Cones: avg projection time: 1.12e-07s
-	Acceleration: avg step time: 2.00e-06s
+Timing: Solve time: 2.32e-04s
+	Lin-sys: avg # CG iterations: 2.54, avg solve time: 7.88e-07s
+	Cones: avg projection time: 1.13e-07s
+	Acceleration: avg step time: 1.92e-06s
 ----------------------------------------------------------------------------
 Error metrics:
 dist(s, K) = 3.0045e-15, dist(y, K*) = 6.0230e-15, s&#39;y/|s||y| = -9.9070e-16
@@ -82,7 +82,7 @@ It     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma   
  1  +1.000e+03  +1.000e+03  +8e-01  1e-04  4e-07  1e-02  4e-01  0.9890  1e-04   1  1  0 |  0  0
  2  +1.000e+03  +1.000e+03  +9e-03  1e-06  4e-09  2e-04  5e-03  0.9890  1e-04   1  0  0 |  0  0
  3  +1.000e+03  +1.000e+03  +1e-04  1e-08  5e-11  3e-06  5e-05  0.9890  1e-04   1  0  0 |  0  0
- 4  +1.000e+03  +1.000e+03  +1e-06  2e-10  5e-13  3e-08  6e-07  0.989  0.050701 seconds (97.50 k allocations: 5.005 MiB)</code></pre><p>Indexing.</p><pre><code class="language-julia">println(&quot;Indexing example&quot;)
+ 4  +1.000e+03  +1.000e+03  +1e-06  2e-10  5e-13  3e-08  6e-07  0.989  0.044376 seconds (97.50 k allocations: 5.005 MiB)</code></pre><p>Indexing.</p><pre><code class="language-julia">println(&quot;Indexing example&quot;)
 x = Variable(1000, 1);
 e = 0;
 @time begin
@@ -93,8 +93,8 @@ e = 0;
   p = minimize(e, x &gt;= ones(1000, 1));
 end
 @time solve!(p, ECOSSolver())</code></pre><pre><code class="language-none">Indexing example
-  0.223955 seconds (124.71 k allocations: 17.595 MiB, 9.59% gc time)
-  0.142154 seconds (160.77 k allocations: 79.090 MiB, 39.82% gc time)</code></pre><p>Matrix constraints.</p><pre><code class="language-julia">println(&quot;Matrix constraint example&quot;)
+  0.203378 seconds (124.71 k allocations: 17.595 MiB, 7.24% gc time)
+  0.110868 seconds (160.77 k allocations: 79.090 MiB, 33.85% gc time)</code></pre><p>Matrix constraints.</p><pre><code class="language-julia">println(&quot;Matrix constraint example&quot;)
 n, m, p = 100, 100, 100
 X = Variable(m, n);
 A = randn(p, m);
@@ -103,8 +103,8 @@ b = randn(p, n);
   p = minimize(norm(vec(X)), A * X == b);
 end
 @time solve!(p, ECOSSolver())</code></pre><pre><code class="language-none">Matrix constraint example
-  0.214922 seconds (239.91 k allocations: 11.124 MiB, 8.51% gc time)
-  2.465108 seconds (212.01 k allocations: 147.888 MiB, 17.24% gc time)</code></pre><p>Transpose.</p><pre><code class="language-julia">println(&quot;Transpose example&quot;)
+  0.195115 seconds (239.91 k allocations: 11.124 MiB, 7.87% gc time)
+  2.169586 seconds (212.01 k allocations: 147.888 MiB, 16.02% gc time)</code></pre><p>Transpose.</p><pre><code class="language-julia">println(&quot;Transpose example&quot;)
 X = Variable(5, 5);
 A = randn(5, 5);
 @time begin
@@ -119,5 +119,5 @@ A = randn(n, n);
   p = minimize(norm(vec(X&#39; - A)), X[1,1] == 1);
   solve!(p, ECOSSolver())
 #end</code></pre><pre><code class="language-none">Transpose example
-  0.069748 seconds (75.52 k allocations: 3.700 MiB)
-  0.033860 seconds (33.16 k allocations: 1.656 MiB)</code></pre><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><div></div><footer><hr/><a class="previous" href="../Convex.jl_intro_ISMP2015/"><span class="direction">Previous</span><span class="title">Convex Optimization in Julia</span></a><a class="next" href="../../time_series/time_series/"><span class="direction">Next</span><span class="title">Time Series Analysis</span></a></footer></article></body></html>
+  0.066958 seconds (75.52 k allocations: 3.700 MiB)
+  0.027032 seconds (33.16 k allocations: 1.656 MiB)</code></pre><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p><div></div><footer><hr/><a class="previous" href="../Convex.jl_intro_ISMP2015/"><span class="direction">Previous</span><span class="title">Convex Optimization in Julia</span></a><a class="next" href="../../time_series/time_series/"><span class="direction">Next</span><span class="title">Time Series Analysis</span></a></footer></article></body></html>
