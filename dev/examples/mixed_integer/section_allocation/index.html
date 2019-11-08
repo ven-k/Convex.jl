@@ -7,21 +7,21 @@ X = Variable(size(P), :Bin)</code></pre><pre><code class="language-none">Variabl
 size: (50, 7)
 sign: real
 vexity: affine
-id: 125…925</code></pre><p>We want every student to be assigned to exactly one section. So, every row must have exactly one non-zero entry In other words, the sum of all the columns for every row is 1 We also want each section to have between 6 and 10 students, so the sum of all the rows for every column should be between these</p><pre><code class="language-julia">constraints = [sum(X, dims=2) == 1, sum(X, dims=1) &lt;= 10, sum(X, dims=1) &gt;= 6]</code></pre><pre><code class="language-none">3-element Array{Constraint,1}:
+id: 107…223</code></pre><p>We want every student to be assigned to exactly one section. So, every row must have exactly one non-zero entry In other words, the sum of all the columns for every row is 1 We also want each section to have between 6 and 10 students, so the sum of all the rows for every column should be between these</p><pre><code class="language-julia">constraints = [sum(X, dims=2) == 1, sum(X, dims=1) &lt;= 10, sum(X, dims=1) &gt;= 6]</code></pre><pre><code class="language-none">3-element Array{Constraint,1}:
  == constraint (affine)
 ├─ * (affine; real)
-│  ├─ 50×7 real variable (id: 125…925)
+│  ├─ 50×7 real variable (id: 107…223)
 │  └─ 7×1 Array{Float64,2}
 └─ 1  
  &lt;= constraint (affine)
 ├─ * (affine; real)
 │  ├─ 1×50 Array{Float64,2}
-│  └─ 50×7 real variable (id: 125…925)
+│  └─ 50×7 real variable (id: 107…223)
 └─ 10
  &gt;= constraint (affine)
 ├─ * (affine; real)
 │  ├─ 1×50 Array{Float64,2}
-│  └─ 50×7 real variable (id: 125…925)
+│  └─ 50×7 real variable (id: 107…223)
 └─ 6 </code></pre><p>Our objective is simple sum(X .* P), which can be more efficiently represented as vec(X)&#39; * vec(P) Since each entry of X is either 0 or 1, this is basically summing up the rankings of students that were assigned to them. If all students got their first choice, this value will be the number of students since the ranking of the first choice is 1.</p><pre><code class="language-julia">p = minimize(vec(X)&#39; * vec(P), constraints)
 
 solve!(p, GLPKSolverMIP())
