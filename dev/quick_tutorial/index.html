@@ -24,7 +24,7 @@ Variable
 size: (5, 1)
 sign: real
 vexity: affine
-id: 477…244
+id: 166…904
 
 julia&gt; # The problem is to minimize ||Ax - b||^2 subject to x &gt;= 0
        # This can be done by: minimize(objective, constraints)
@@ -38,7 +38,7 @@ minimize
    └─ [1.0]
 subject to
 └─ &gt;= constraint (affine)
-   ├─ 5-element real variable (id: 477…244)
+   ├─ 5-element real variable (id: 166…904)
    └─ 0
 
 current status: not yet solved
@@ -48,7 +48,7 @@ julia&gt; # Solve the problem by calling solve!
 0  1e-04   1  0  0 |  0  0
 
 OPTIMAL (within feastol=1.6e-10, reltol=1.1e-09, abstol=1.1e-06).
-Runtime: 0.000089 seconds.
+Runtime: 0.000100 seconds.
 
 
 ECOS 2.0.5 - (C) embotech GmbH, Zurich Switzerland, 2012-15. Web: www.embotech.com/ECOS
@@ -62,7 +62,7 @@ It     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma   
  5  +1.000e+03  +1.000e+03  +2e-07  5e-12  2e-12  2e-10  2e-10  0.9890  1e-04   2  0  0 |  0  0
 
 OPTIMAL (within feastol=5.0e-12, reltol=1.7e-10, abstol=1.7e-07).
-Runtime: 0.002963 seconds.
+Runtime: 0.002839 seconds.
 
 
 ECOS 2.0.5 - (C) embotech GmbH, Zurich Switzerland, 2012-15. Web: www.embotech.com/ECOS
@@ -77,7 +77,7 @@ It     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma   
  6  +8.168e+02  +8.168e+02  +2e-07  3e-13  3e-14  3e-07  2e-07  0.9890  1e-04   3  1  2 |  0  0
 
 OPTIMAL (within feastol=3.3e-13, reltol=2.8e-10, abstol=2.3e-07).
-Runtime: 1.682285 seconds.
+Runtime: 2.073238 seconds.
 
 
 ECOS 2.0.5 - (C) embotech GmbH, Zurich Switzerland, 2012-15. Web: www.embotech.com/ECOS
@@ -92,7 +92,7 @@ It     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma   
  6  +3.247e+00  +3.247e+00  +2e-09  2e-11  3e-15  1e-09  2e-09  0.9890  1e-04   2  1  1 |  0  0
 
 OPTIMAL (within feastol=2.1e-11, reltol=6.2e-10, abstol=2.0e-09).
-Runtime: 0.000216 seconds.
+Runtime: 0.000239 seconds.
 
 
 ECOS 2.0.5 - (C) embotech GmbH, Zurich Switzerland, 2012-15. Web: www.embotech.com/ECOS
@@ -107,7 +107,7 @@ It     pcost       dcost      gap   pres   dres    k/t    mu     step   sigma   
  6  +2.638e-01  +2.638e-01  +5e-10  3e-11  5e-15  2e-10  4e-10  0.9890  1e-04   2  1  1 |  0  0
 
 OPTIMAL (within feastol=2.9e-11, reltol=2.0e-09, abstol=5.2e-10).
-Runtime: 0.000112 seconds.
+Runtime: 0.000128 seconds.
 
 ----------------------------------------------------------------------------
 	SCS v2.0.2 - Splitting Conic Solver

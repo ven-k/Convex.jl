@@ -40,7 +40,7 @@ p = minimize(norm(X) + y, 2 * X &lt;= 1, X&#39; + y &gt;= 1, X &gt;= 0, y &gt;= 
 solve!(p, solver)
 println(round.(X.value, digits=2))
 println(y.value)
-p.optval</code></pre><pre><code class="language-none">0.9999999884829863</code></pre><h3><a class="nav-anchor" id="Norm,-exponential-and-geometric-mean-1" href="#Norm,-exponential-and-geometric-mean-1">Norm, exponential and geometric mean</a></h3><div>\[\begin{array}{ll}
+p.optval</code></pre><pre><code class="language-none">0.9999999998281235</code></pre><h3><a class="nav-anchor" id="Norm,-exponential-and-geometric-mean-1" href="#Norm,-exponential-and-geometric-mean-1">Norm, exponential and geometric mean</a></h3><div>\[\begin{array}{ll}
   \mbox{satisfy} &amp; \| x \|_2 \leq 100 \\
   &amp; e^{x_1} \leq 5 \\
   &amp; x_2 \geq 7 \\
