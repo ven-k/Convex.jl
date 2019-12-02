@@ -12,25 +12,25 @@ b = rand(m, 1);
 
 x = Variable(n);
 problem = maximize(entropy(x), sum(x) == 1, A * x &lt;= b)
-solve!(problem, SCSSolver(verbose=false))
-problem.optval</code></pre><pre><code class="language-none">3.2128414428175067</code></pre><pre><code class="language-julia">x.value</code></pre><pre><code class="language-none">25×1 Array{Float64,2}:
- 0.04058852189018231 
- 0.038285344918557604
- 0.03395741057118577 
- 0.040647593728457915
- 0.04228713134990009 
- 0.04194416587420887 
- 0.03735496513986307 
- 0.039236149446970944
- 0.04337649177356401 
- 0.03801001778510214 
+solve!(problem, SCS.Optimizer(verbose=false))
+problem.optval</code></pre><pre><code class="language-none">3.2128414449245355</code></pre><pre><code class="language-julia">x.value</code></pre><pre><code class="language-none">25×1 Array{Float64,2}:
+ 0.040588522470082246
+ 0.0382853450387656  
+ 0.033957409595647255
+ 0.04064759316065728 
+ 0.042287131800339606
+ 0.041944165559194835
+ 0.0373549642862865  
+ 0.0392361485517926  
+ 0.043376491304663076
+ 0.03801001789127934 
  ⋮                   
- 0.04045179982360482 
- 0.046196380944001574
- 0.03429461326289106 
- 0.03738838632242473 
- 0.03768436177190742 
- 0.036877681237009234
- 0.03942257167173096 
- 0.03335141793043247 
- 0.0505874705999775  </code></pre><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../logistic_regression/">« Logistic regression</a><a class="docs-footer-nextpage" href="../optimal_advertising/">Optimal advertising »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Saturday 30 November 2019 17:06">Saturday 30 November 2019</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+ 0.04045179835403225 
+ 0.04619638061812959 
+ 0.03429461386671092 
+ 0.037388386688927286
+ 0.03768436175690152 
+ 0.03687768107221757 
+ 0.0394225721564072  
+ 0.033351417388766506
+ 0.05058747092714837 </code></pre><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../logistic_regression/">« Logistic regression</a><a class="docs-footer-nextpage" href="../optimal_advertising/">Optimal advertising »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Monday 2 December 2019 22:16">Monday 2 December 2019</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

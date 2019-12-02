@@ -23,7 +23,7 @@ c3 = real(W[1,1]) == 1.06^2;
 push!(c1, c2)
 push!(c1, c3)
 p = maximize(objective, c1);
-solve!(p, SCSSolver(verbose = 0))
+solve!(p, SCS.Optimizer(verbose = 0))
 p.optval
 #15.125857662600703
 evaluate(objective)
@@ -42,4 +42,4 @@ imag_diff = imag(W.value) - imag(Wres);
 real_diff = real(W.value) - (real(W.value))&#39;;
 imag_sum = imag(W.value) + (imag(W.value))&#39;;
 @test real_diff ≈ zeros(n, n) atol = TOL
-@test imag_diff ≈ zeros(n, n) atol = TOL</code></pre><pre><code class="language-none">Test Passed</code></pre><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../povm_simulation/">« POVM simulation</a><a class="docs-footer-nextpage" href="../../portfolio_optimization/portfolio_optimization/">Portfolio Optimization »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Saturday 30 November 2019 17:06">Saturday 30 November 2019</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+@test imag_diff ≈ zeros(n, n) atol = TOL</code></pre><pre><code class="language-none">Test Passed</code></pre><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../povm_simulation/">« POVM simulation</a><a class="docs-footer-nextpage" href="../../portfolio_optimization/portfolio_optimization/">Portfolio Optimization »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Monday 2 December 2019 22:16">Monday 2 December 2019</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
