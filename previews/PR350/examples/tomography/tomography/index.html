@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Tomography · Convex.jl</title><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">Convex.jl</span></div><form class="docs-search" action="../../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><a class="tocitem" href="../../../installation/">Installation</a></li><li><a class="tocitem" href="../../../quick_tutorial/">Quick Tutorial</a></li><li><a class="tocitem" href="../../../types/">Basic Types</a></li><li><a class="tocitem" href="../../../operations/">Supported Operations</a></li><li><a class="tocitem" href="../../../complex-domain_optimization/">Complex-domain Optimization</a></li><li><a class="tocitem" href="../../../solvers/">Solvers</a></li><li><a class="tocitem" href="../../../faq/">FAQ</a></li><li><a class="tocitem" href="../../../advanced/">Advanced</a></li><li><a class="tocitem" href="../../../problem_depot/">Problem Depot</a></li><li><a class="tocitem" href="../../../contributing/">Contributing</a></li><li><a class="tocitem" href="../../../credits/">Credits</a></li><li><span class="tocitem">Examples</span><ul><li><input class="collapse-toggle" id="menuitem-13-1" type="checkbox"/><label class="tocitem" for="menuitem-13-1"><span class="docs-label">General examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../general_examples/DCP_analysis/">DCP analysis</a></li><li><a class="tocitem" href="../../general_examples/basic_usage/">Basic Usage</a></li><li><a class="tocitem" href="../../general_examples/chebyshev_center/">Chebyshev center</a></li><li><a class="tocitem" href="../../general_examples/control/">Control</a></li><li><a class="tocitem" href="../../general_examples/huber_regression/">Huber regression</a></li><li><a class="tocitem" href="../../general_examples/logistic_regression/">Logistic regression</a></li><li><a class="tocitem" href="../../general_examples/max_entropy/">Entropy Maximization</a></li><li><a class="tocitem" href="../../general_examples/optimal_advertising/">Optimal advertising</a></li><li><a class="tocitem" href="../../general_examples/robust_approx_fitting/">Robust approximate fitting</a></li><li><a class="tocitem" href="../../general_examples/svm/">Support vector machine</a></li><li><a class="tocitem" href="../../general_examples/svm_l1regularization/">SVM with L^1 regularization</a></li><li><a class="tocitem" href="../../general_examples/trade_off_curves/">Trade-off curves</a></li><li><a class="tocitem" href="../../general_examples/worst_case_analysis/">Worst case risk analysis</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-2" type="checkbox"/><label class="tocitem" for="menuitem-13-2"><span class="docs-label">Mixed integer</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../mixed_integer/binary_knapsack/">Binary (or 0-1) knapsack problem</a></li><li><a class="tocitem" href="../../mixed_integer/n_queens/">N queens</a></li><li><a class="tocitem" href="../../mixed_integer/section_allocation/">Section Allocation</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-3" type="checkbox"/><label class="tocitem" for="menuitem-13-3"><span class="docs-label">Optimization with complex variables</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../optimization_with_complex_variables/Fidelity in Quantum Information Theory/">Fidelity in quantum information theory</a></li><li><a class="tocitem" href="../../optimization_with_complex_variables/phase_recovery_using_MaxCut/">Phase recovery using MaxCut</a></li><li><a class="tocitem" href="../../optimization_with_complex_variables/povm_simulation/">POVM simulation</a></li><li><a class="tocitem" href="../../optimization_with_complex_variables/power_flow_optimization/">Power flow optimization</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-4" type="checkbox"/><label class="tocitem" for="menuitem-13-4"><span class="docs-label">Portfolio optimization</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../portfolio_optimization/portfolio_optimization/">Portfolio Optimization</a></li><li><a class="tocitem" href="../../portfolio_optimization/portfolio_optimization2/">Portfolio Optimization - Markowitz Efficient Frontier</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-5" type="checkbox"/><label class="tocitem" for="menuitem-13-5"><span class="docs-label">Supplemental material</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../supplemental_material/Convex.jl_intro_ISMP2015/">Convex Optimization in Julia</a></li><li><a class="tocitem" href="../../supplemental_material/paper_examples/">Paper examples</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-6" type="checkbox"/><label class="tocitem" for="menuitem-13-6"><span class="docs-label">Time series</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../time_series/time_series/">Time Series Analysis</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-7" type="checkbox" checked/><label class="tocitem" for="menuitem-13-7"><span class="docs-label">Tomography</span><i class="docs-chevron"></i></label><ul class="collapsed"><li class="is-active"><a class="tocitem" href>Tomography</a></li></ul></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Examples</a></li><li><a class="is-disabled">Tomography</a></li><li class="is-active"><a href>Tomography</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Tomography</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/JuliaOpt/Convex.jl/blob/master/docs/examples_literate/tomography/tomography.jl" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><p>All of the examples can be found in Jupyter notebook form <a href="../../notebooks.zip">here</a>.</p><h1 id="Tomography-1"><a class="docs-heading-anchor" href="#Tomography-1">Tomography</a><a class="docs-heading-anchor-permalink" href="#Tomography-1" title="Permalink"></a></h1><p>Tomography is the process of reconstructing a density distribution from given integrals over sections of the distribution. In our example, we will work with tomography on black and white images. Suppose <span>$x$</span> be the vector of <span>$n$</span> pixel densities, with <span>$x_j$</span> denoting how white pixel <span>$j$</span> is. Let <span>$y$</span> be the vector of <span>$m$</span> line integrals over the image, with <span>$y_i$</span> denoting the integral for line <span>$i$</span>. We can define a matrix <span>$A$</span> to describe the geometry of the lines. Entry <span>$A_{ij}$</span> describes how much of pixel <span>$j$</span> is intersected by line <span>$i$</span>. Assuming our measurements of the line integrals are perfect, we have the relationship that</p><div>\[  y = Ax\]</div><p>However, anytime we have measurements, there are usually small errors that occur. Therefore it makes sense to try to minimize</p><div>\[ \|y - Ax\|_2^2.\]</div><p>This is simply an unconstrained least squares problem; something we can readily solve!</p><pre><code class="language-julia">using Convex, ECOS, DelimitedFiles, SparseArrays
+aux(str) = joinpath(@__DIR__, &quot;aux_files&quot;, str) # path to auxiliary files
+line_mat_x = readdlm(aux(&quot;tux_sparse_x.txt&quot;))
+summary(line_mat_x)
+
+line_mat_y = readdlm(aux(&quot;tux_sparse_y.txt&quot;))
+summary(line_mat_y)
+
+line_mat_val = readdlm(aux(&quot;tux_sparse_val.txt&quot;))
+summary(line_mat_val)
+
+line_vals = readdlm(aux(&quot;tux_sparse_lines.txt&quot;))
+summary(line_vals)</code></pre><pre><code class="language-none">&quot;3300×1 Array{Float64,2}&quot;</code></pre><p>Form the sparse matrix from the data Image is 50 x 50</p><pre><code class="language-julia">img_size = 50</code></pre><pre><code class="language-none">50</code></pre><p>The number of pixels in the image</p><pre><code class="language-julia">num_pixels = img_size * img_size
+
+line_mat = spzeros(length(line_vals), num_pixels)
+
+num_vals = length(line_mat_val)
+
+for i in 1:num_vals
+  x = Int(line_mat_x[i])
+  y = Int(line_mat_y[i])
+  line_mat[x + 1, y + 1] = line_mat_val[i]
+end
+
+pixel_colors = Variable(num_pixels)
+# line_mat * pixel_colors should be close to the line_integral_values
+# to reflect that, we minimize a norm
+objective = sumsquares(line_mat * pixel_colors - line_vals)
+problem = minimize(objective)
+solve!(problem, ECOS.Optimizer(verbose=0))
+
+rows = zeros(img_size*img_size)
+cols = zeros(img_size*img_size)
+for i = 1:img_size
+  for j = 1:img_size
+    rows[(i-1)*img_size + j] = i
+    cols[(i-1)*img_size + j] = img_size + 1 - j
+  end
+end</code></pre><p>Plot the image using the pixel values obtained!</p><pre><code class="language-julia">using Plots
+image = reshape(evaluate(pixel_colors), img_size, img_size)
+heatmap(image, yflip=true, aspect_ratio=1, colorbar=nothing, color=:grays)</code></pre><?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="400" viewBox="0 0 2400 1600">
+<defs>
+  <clipPath id="clip2400">
+    <rect x="0" y="0" width="2400" height="1600"/>
+  </clipPath>
+</defs>
+<path clip-path="url(#clip2400)" d="
+M0 1600 L2400 1600 L2400 0 L0 0  Z
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
+<defs>
+  <clipPath id="clip2401">
+    <rect x="480" y="0" width="1681" height="1600"/>
+  </clipPath>
+</defs>
+<path clip-path="url(#clip2400)" d="
+M140.517 1487.47 L2352.76 1487.47 L2352.76 47.2441 L140.517 47.2441  Z
+  " fill="#ffffff" fill-rule="evenodd" fill-opacity="1"/>
+<defs>
+  <clipPath id="clip2402">
+    <rect x="140" y="47" width="2213" height="1441"/>
+  </clipPath>
+</defs>
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  512.119,47.2441 512.119,1487.47 
+  "/>
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1088.21,47.2441 1088.21,1487.47 
+  "/>
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  1664.3,47.2441 1664.3,1487.47 
+  "/>
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  2240.4,47.2441 2240.4,1487.47 
+  "/>
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  140.517,320.888 2352.76,320.888 
+  "/>
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  140.517,608.934 2352.76,608.934 
+  "/>
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  140.517,896.98 2352.76,896.98 
+  "/>
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  140.517,1185.03 2352.76,1185.03 
+  "/>
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:2; stroke-opacity:0.1; fill:none" points="
+  140.517,1473.07 2352.76,1473.07 
+  "/>
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  140.517,1487.47 2352.76,1487.47 
+  "/>
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  140.517,47.2441 140.517,1487.47 
+  "/>
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  512.119,1487.47 512.119,1465.87 
+  "/>
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1088.21,1487.47 1088.21,1465.87 
+  "/>
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  1664.3,1487.47 1664.3,1465.87 
+  "/>
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  2240.4,1487.47 2240.4,1465.87 
+  "/>
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  140.517,320.888 173.7,320.888 
+  "/>
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  140.517,608.934 173.7,608.934 
+  "/>
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  140.517,896.98 173.7,896.98 
+  "/>
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  140.517,1185.03 173.7,1185.03 
+  "/>
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:4; stroke-opacity:1; fill:none" points="
+  140.517,1473.07 173.7,1473.07 
+  "/>
+<g clip-path="url(#clip2400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 512.119, 1541.47)" x="512.119" y="1541.47">0</text>
+</g>
+<g clip-path="url(#clip2400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1088.21, 1541.47)" x="1088.21" y="1541.47">20</text>
+</g>
+<g clip-path="url(#clip2400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 1664.3, 1541.47)" x="1664.3" y="1541.47">40</text>
+</g>
+<g clip-path="url(#clip2400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:middle;" transform="rotate(0, 2240.4, 1541.47)" x="2240.4" y="1541.47">60</text>
+</g>
+<g clip-path="url(#clip2400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 116.517, 338.388)" x="116.517" y="338.388">10</text>
+</g>
+<g clip-path="url(#clip2400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 116.517, 626.434)" x="116.517" y="626.434">20</text>
+</g>
+<g clip-path="url(#clip2400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 116.517, 914.48)" x="116.517" y="914.48">30</text>
+</g>
+<g clip-path="url(#clip2400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 116.517, 1202.53)" x="116.517" y="1202.53">40</text>
+</g>
+<g clip-path="url(#clip2400)">
+<text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:48px; text-anchor:end;" transform="rotate(0, 116.517, 1490.57)" x="116.517" y="1490.57">50</text>
+</g>
+<g clip-path="url(#clip2402)">
+<image width="1440" height="1440" xlink:href="data:image/png;base64,
+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
+DAbX9V5ExMLCQvnm5cuXyzePHTtWvnnbbbeV7k2n09K9iIg77rijfPMXv/hF+eb58+fLN6vfm8eP
+Hy/di4jYt29f+ebZs2fLN48ePVq+ub29Xbp37dq10r2IiL29vfLNra2t8s0W3w3+8Y9/lO6dOHGi
+dC+i/j0S0ea1bPFsMpvNruu9iDbPQvPyzNfi9aw2L/1nHl5Lv4AGAAAAACCFAA0AAAAAQAoBGgAA
+AACAFAI0AAAAAAApBGgAAAAAAFII0AAAAAAApBCgAQAAAABIIUADAAAAAJBCgAYAAAAAIIUADQAA
+AABACgEaAAAAAIAUAjQAAAAAACkEaAAAAAAAUgjQAAAAAACkEKABAAAAAEghQAMAAAAAkEKABgAA
+AAAghQANAAAAAEAKARoAAAAAgBQCNAAAAAAAKQRoAAAAAABSCNAAAAAAAKQQoAEAAAAASCFAAwAA
+AACQQoAGAAAAACCFAA0AAAAAQAoBGgAAAACAFAI0AAAAAAApBrPZrPXfUMJx5ui6rnQvYn5eyxbn
+djqdlu7Ny/VTfV4jIiaTyXW/OR6PS/ciIg4dOlS+eeXKlfLN5557rnzz+9//funewYMHS/ci2tx/
+hsNh+ebtt99evrmzs1O6d/jw4dK9iIif/OQn5ZvPP/98+WaLz69HHnmkdG9zc7N0LyKi16v/3dHy
+8nL5Zgt//etfS/cGg0HpXkTEaDQq31xaWirfbPGdvXqzxb2g3++Xb7Z4TmhxnNWfmfPy/N5Ci/tP
+9bn1C2gAAAAAAFII0AAAAAAApBCgAQAAAABIIUADAAAAAJBCgAYAAAAAIIUADQAAAABACgEaAAAA
+AIAUAjQAAAAAACkEaAAAAAAAUgjQAAAAAACkEKABAAAAAEghQAMAAAAAkEKABgAAAAAghQANAAAA
+AEAKARoAAAAAgBQCNAAAAAAAKQRoAAAAAABSCNAAAAAAAKQQoAEAAAAASCFAAwAAAACQQoAGAAAA
+ACCFAA0AAAAAQAoBGgAAAACAFAI0AAAAAAApBGgAAAAAAFII0AAAAAAApBCgAQAAAABIIUADAAAA
+AJBi0HVd+WiLzRbm5TjnwWw2K99scf1MJpPSvcFgULoXEbG3t1e+2e/3yzerX8uIiF6v9n+aLc7r
+0tJS+eYtt9xSvvnoo4+Wb66urpbutbivb29vl2/u7u6Wb25sbJRvHjx4sHTv2rVrpXsREYcOHSrf
+/OhHP1q+2eL6OXr0aOner3/969K9iIj9+/eXb+7s7JRvTqfT8s1XXnmldG9zc7N0L6LNZ2aL7+wt
+rp/q78/j8bh0L6LN9dPiWajF83v1NasfXl+q7z9+AQ0AAAAAQAoBGgAAAACAFAI0AAAAAAApBGgA
+AAAAAFII0AAAAAAApBCgAQAAAABIIUADAAAAAJBCgAYAAAAAIIUADQAAAABACgEaAAAAAIAUAjQA
+AAAAACkEaAAAAAAAUgjQAAAAAACkEKABAAAAAEghQAMAAAAAkEKABgAAAAAghQANAAAAAEAKARoA
+AAAAgBQCNAAAAAAAKQRoAAAAAABSCNAAAAAAAKQQoAEAAAAASCFAAwAAAACQQoAGAAAAACCFAA0A
+AAAAQAoBGgAAAACAFAI0AAAAAAApBGgAAAAAAFIMZrNZ+ehkMinfhP82Xde1/hPSuRdcX6o/T1p8
+fq2urpZv/v3vfy/f/MEPflC++cUvfrF0b3FxsXQvImJ3d7d8s8VxtnhvVp/b9fX10r2IiOl0Wr75
+9NNPl2+eOHGifPPGG28s3RsMBqV7ERELCwvlmysrK+WbFy9eLN98+eWXS/f+9a9/le5FRBw5cqR8
+s8WzUIv77HA4LN1rcYwtXst5eJaOqD/OFt/x5uVeMA/8AhoAAAAAgBQCNAAAAAAAKQRoAAAAAABS
+CNAAAAAAAKQQoAEAAAAASCFAAwAAAACQQoAGAAAAACCFAA0AAAAAQAoBGgAAAACAFAI0AAAAAAAp
+BGgAAAAAAFII0AAAAAAApBCgAQAAAABIIUADAAAAAJBCgAYAAAAAIIUADQAAAABACgEaAAAAAIAU
+AjQAAAAAACkEaAAAAAAAUgjQAAAAAACkEKABAAAAAEghQAMAAAAAkEKABgAAAAAghQANAAAAAEAK
+ARoAAAAAgBQCNAAAAAAAKQRoAAAAAABSDLquKx8dDoflm/NiNpuV7rW4flpocZzVr2VExGQyKd3r
+9er/B1Z9jK3Mw3uzxTEeOXKkfLPFNfvUU0+Vb66vr5fu3XfffaV7ERHT6bR8s8X1c+7cufLNf/7z
+n6V7S0tLpXsREe9+97vLN9///veXb77zne8s33zyySdL91q8L9/xjneUb95///3lm9/5znfKN8+e
+PVu698ILL5TuRUTcdNNN5ZuDwaB8s0WnqL4ftHjG7Pf75ZstjrMF/SfHvBxn9fXjF9AAAAAAAKQQ
+oAEAAAAASCFAAwAAAACQQoAGAAAAACCFAA0AAAAAQAoBGgAAAACAFAI0AAAAAAApBGgAAAAAAFII
+0AAAAAAApBCgAQAAAABIIUADAAAAAJBCgAYAAAAAIIUADQAAAABACgEaAAAAAIAUAjQAAAAAACkE
+aAAAAAAAUgjQAAAAAACkEKABAAAAAEghQAMAAAAAkEKABgAAAAAghQANAAAAAEAKARoAAAAAgBQC
+NAAAAAAAKQRoAAAAAABSCNAAAAAAAKQQoAEAAAAASCFAAwAAAACQQoAGAAAAACDFYDqdlo9OJpPy
+zRa6rivfnM1mpXstjrHF9dPr+V9NhurrNSJic3OzfHN1dbV8s8W9fXd3t3Svxf1nY2OjfHNxcbF8
+85Zbbinf/OlPf1q6d+zYsdK9iIiDBw+Wb7a4z7Y4zurX8/z586V7ERE///nPyzcPHTpUvrl///7y
+zdtvv710bzQale5FRLzwwgvlm7/5zW/KNx977LHyzbvvvrt078knnyzdi4j48Ic/XL7Z4vOrxTNf
+9Xf2ra2t0r2IiOFwWL7Z4jlhe3u7fLPFc0K16mfMiDbXbIvOVf0+UdUAAAAAAEghQAMAAAAAkEKA
+BgAAAAAghQANAAAAAEAKARoAAAAAgBQCNAAAAAAAKQRoAAAAAABSCNAAAAAAAKQQoAEAAAAASCFA
+AwAAAACQQoAGAAAAACCFAA0AAAAAQAoBGgAAAACAFAI0AAAAAAApBGgAAAAAAFII0AAAAAAApBCg
+AQAAAABIIUADAAAAAJBCgAYAAAAAIIUADQAAAABACgEaAAAAAIAUAjQAAAAAACkEaAAAAAAAUgjQ
+AAAAAACkEKABAAAAAEghQAMAAAAAkEKABgAAAAAghQANAAAAAECKbm1tbdb6j7hedV1Xvjmb1b6c
+83CMERH9fr98czwel29Wm0wm5ZstXsvRaFS+ubW1Vb65t7dXurewsFC6FxHx2c9+tnzzt7/9bfnm
+6dOnyze/9KUvle4dOXKkdC8i4tSpU+Wbt956a/nm2bNnyzd/9rOfle5du3atdC8i4itf+Ur55rve
+9a7yzcXFxfLN6XRaunfXXXeV7kVE/PnPfy7fbPE9b2VlpXyz+tlke3u7dC8i4uGHHy7fvPfee8s3
+W3y3rL7/tFD9jBARMRwOyzdbtJGNjY3SvRbvkRavZYvPr16v/vfB1desX0ADAAAAAJBCgAYAAAAA
+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
+/OMfL988ePBg+eYDDzxQuvfMM8+UHIIfOQAAFWlJREFU7kVEvPzyy+Wb3//+98s3P/3pT5dvDofD
+8s150Ol0bF4gZrPZXGy2OHNNp9PSvRZnvBbW1tbKN6tfy4iIzc3N0r0Wn5H9+/eXbz799NPlm3/8
+4x/LN1dWVkr3rrjiitK9iIilpaXyzRbnghafzerrzyuvvFK6FxFx8803l2+2OP+0+P6qNh+nHwAA
+AAAAygnQAAAAAACkEKABAAAAAEghQAMAAAAAkEKABgAAAAAghQANAAAAAEAKARoAAAAAgBQCNAAA
+AAAAKQRoAAAAAABSCNAAAAAAAKQQoAEAAAAASCFAAwAAAACQQoAGAAAAACCFAA0AAAAAQAoBGgAA
+AACAFAI0AAAAAAApBGgAAAAAAFII0AAAAAAApBCgAQAAAABIIUADAAAAAJBCgAYAAAAAIIUADQAA
+AABACgEaAAAAAIAUAjQAAAAAACkEaAAAAAAAUgjQAAAAAACkEKABAAAAAEghQAMAAAAAkKL37LPP
+lo9+9KMfLd+86aabyjd3dnbKNweDQeneZDIp3YuImE6n5Zvb29vlm4uLi+Wbq6urpXstnteLLrqo
+fHNra6t88wtf+EL55r/+9a/Svccff7x0L6LNa/nNb36zfPOOO+4o37znnnvKN6udO3eufHPPnj3l
+my0+J71er3SvxVmkhU6nU77Z7XbLN2ezWflmtRav5crKSvnm//73vwt+86qrrirdi4g4e/Zs+eZo
+NCrfvPbaa8s3q7VoFP1+v3yzxeNcX18v3/zsZz9buvfII4+U7kVEvPDCC+Wb119/fflmi7ZWzS+g
+AQAAAABIIUADAAAAAJBCgAYAAAAAIIUADQAAAABACgEaAAAAAIAUAjQAAAAAACkEaAAAAAAAUgjQ
+AAAAAACkEKABAAAAAEghQAMAAAAAkEKABgAAAAAghQANAAAAAEAKARoAAAAAgBQCNAAAAAAAKQRo
+AAAAAABSCNAAAAAAAKQQoAEAAAAASCFAAwAAAACQQoAGAAAAACCFAA0AAAAAQAoBGgAAAACAFAI0
+AAAAAAApBGgAAAAAAFII0AAAAAAApBCgAQAAAABIIUADAAAAAJBCgAYAAAAAIEXvsssuKx8dDAbl
+mwsL9a292+2Wb/b7/dK92WxWuhfR5rVcXl4u35xOp+WbnU6ndG9xcbF0r5XhcFi+ubOzU775ne98
+p3TvyJEjpXsREf/4xz/KN/fu3Vu++bOf/ax88xOf+ETp3qc+9anSvYg255/q63or29vbpXtLS0ul
+exFtzlwtNjc2Nso3qz+bLc6y4/G4fLPF56TF5rFjx0r33v3ud5fuRbT5Lmlxfm7xOak+s7e4/3r7
+7bfLN1dXV8s3Wzy31f3nW9/6VuleRMTXvva18s3777+/fPO2224r36w+j/gFNAAAAAAAKQRoAAAA
+AABSCNAAAAAAAKQQoAEAAAAASCFAAwAAAACQQoAGAAAAACCFAA0AAAAAQAoBGgAAAACAFAI0AAAA
+AAApBGgAAAAAAFII0AAAAAAApBCgAQAAAABIIUADAAAAAJBCgAYAAAAAIIUADQAAAABACgEaAAAA
+AIAUAjQAAAAAACkEaAAAAAAAUgjQAAAAAACkEKABAAAAAEghQAMAAAAAkEKABgAAAAAghQANAAAA
+AEAKARoAAAAAgBQCNAAAAAAAKQRoAAAAAABSCNAAAAAAAKQQoAEAAAAASNH585//PKsePXToUPVk
+PPLII+Wbi4uL5Zs7Ozule71er3QvIuLMmTPlm2tra+Wb0+m0fHM2K78clFtYqP+/W/XnMiJia2ur
+fPPSSy8t3fvLX/5SuhcRcffdd5dv/vOf/yzf3LdvX/nmo48+Wrq3Z8+e0r2IiNFoVL45GAzKN1uo
+PnO1+I4ej8flm91udy42q1/PjY2N0r2IiN/+9rflm+fPny/f/M9//lO+WX3++frXv166F9HmXNli
+c9euXeWb1defs2fPlu5FRFxyySXlmy2uPy36T/XZYDKZlO5FRJw4caJ88+jRo+Wbx48fL998//vf
+X7rnF9AAAAAAAKQQoAEAAAAASCFAAwAAAACQQoAGAAAAACCFAA0AAAAAQAoBGgAAAACAFAI0AAAA
+AAApBGgAAAAAAFII0AAAAAAApBCgAQAAAABIIUADAAAAAJBCgAYAAAAAIIUADQAAAABACgEaAAAA
+AIAUAjQAAAAAACkEaAAAAAAAUgjQAAAAAACkEKABAAAAAEghQAMAAAAAkEKABgAAAAAghQANAAAA
+AEAKAZr/1669vFhd/3Ecf8/lzKVRocGSpCjKRQWRCZnthCKkXddNELRpIVQLKYKgZZsWbYIKF1EL
+oVVbuywUokWbQKUyRDRDM6NMcy46M+f3V7xfX/j5ePwDT8453/l+P+c1BwAAAACghQEaAAAAAIAW
+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
+ANDCAA0AAAAAQAsDNAAAAAAALQzQAAAAAAC0MEADAAAAANDCAA0AAAAAQAsDNAAAAAAALabffvvt
+ePS9996LN48cORJv7ty5M97c2NiI9p544olor6pqdnY23pyczP+v5o477og35+fno7309VpVNRqN
+4s25ubl4c4j3dn19/f+6V1U1NTUVb66trcWbmzZtijePHz8e7d1yyy3RXtUwn+UQ1+zVq1fjzfQ1
+u7S0FO1VDfP8GuJecO3atXjz8uXL0d709HS0V5V/jVVVhw8fjjevXLkSb6av2S1btkR7VcPc826G
+s2xV1cLCQrS3vLwc7VVVHTp0KN58//33483du3fHm+nXOcT9Z4hn5hAmJibizfT3Ib+ABgAAAACg
+hQEaAAAAAIAWBmgAAAAAAFoYoAEAAAAAaGGABgAAAACghQEaAAAAAIAWBmgAAAAAAFoYoAEAAAAA
+aGGABgAAAACghQEaAAAAAIAWBmgAAAAAAFoYoAEAAAAAaGGABgAAAACghQEaAAAAAIAWBmgAAAAA
+AFoYoAEAAAAAaGGABgAAAACghQEaAAAAAIAWBmgAAAAAAFoYoAEAAAAAaGGABgAAAACghQEaAAAA
+AIAWBmgAAAAAAFoYoAEAAAAAaGGABgAAAACghQEaAAAAAIAWBmgAAAAAAFoYoAEAAAAAaDFx4cKF
+cTo6NTWVTta5c+fizWvXrsWb58+fj/Z+//33aK+q6syZM/HmqVOn4s2VlZV489FHH432HnrooWiv
+qurxxx+PNzdv3hxvTkxM/N83x+P442uQ59cXX3wRb7777rvx5j333BPt7du3L9qrqtqxY0e8uW3b
+tnhzbW0t3kzff6anp6O9qqpNmzbFm0M8S0ajUbx56dKlaG+I9/XixYvx5sGDB+PN06dPx5svvfRS
+tHfgwIFor6pqZmYm3hzinDc5mf993vfffx/tvf7669FeVdXDDz8cb77zzjvx5n333RdvXr9+Pd5M
+G+LMNcRZdojzz/LycrTnF9AAAAAAALQwQAMAAAAA0MIADQAAAABACwM0AAAAAAAtDNAAAAAAALQw
+QAMAAAAA0MIADQAAAABACwM0AAAAAAAtDNAAAAAAALQwQAMAAAAA0MIADQAAAABACwM0AAAAAAAt
+DNAAAAAAALQwQAMAAAAA0MIADQAAAABACwM0AAAAAAAtDNAAAAAAALQwQAMAAAAA0MIADQAAAABA
+CwM0AAAAAAAtDNAAAAAAALQwQAMAAAAA0MIADQAAAABACwM0AAAAAAAtDNAAAAAAALQwQAMAAAAA
+0MIADQAAAABACwM0AAAAAAAtJi5evDiORycm0slBmkPY2NiI9sbj+OUziCGunxMnTsSbR48ejfZ+
++OGHaK+qanV1Nd585JFH4s1t27bFm7fffnu0Nzc3F+1VVX399dfx5o8//hhvPv/88/HmK6+8Eu2l
+n5dVVbOzs/Hm5GT+twbr6+vx5tTUVLQ3xGsc4rMcwhBnrvR59mY5P588eTLefPPNN+PN9Ot88skn
+o72qqj179sSb8/Pz8ea3334bb6a/f73xxhvRXlXVyy+/HG8uLCzEm0OcLdPnkenp6WivapjzzxCf
+5RBng/SZ6+Y4yQIAAAAAEGeABgAAAACghQEaAAAAAIAWBmgAAAAAAFoYoAEAAAAAaGGABgAAAACg
+hQEaAAAAAIAWBmgAAAAAAFoYoAEAAAAAaGGABgAAAACghQEaAAAAAIAWBmgAAAAAAFoYoAEAAAAA
+aGGABgAAAACghQEaAAAAAIAWBmgAAAAAAFoYoAEAAAAAaGGABgAAAACghQEaAAAAAIAWBmgAAAAA
+AFoYoAEAAAAAaGGABgAAAACghQEaAAAAAIAWBmgAAAAAAFoYoAEAAAAAaGGABgAAAACghQEaAAAA
+AIAWBmgAAAAAAFpMXLx4cRyPTkykk4M0h7CxsRHtjcfxy+em+SwnJ/P/H1pbW4v2rl+/Hu1VVf31
+11/x5h9//BFvHjlyJN48efJktHflypVor6rqmWeeiTd3794db+7YsSPeTFtdXY03Z2dn483l5eV4
+czQaxZs3y9ngZjDEZ5k+zw5xfh7C9PR0vHn+/Pl488svv4z2vvnmm2ivqur06dPx5vz8fLy5a9eu
+eHP//v3R3vbt26O9qqqtW7fGmysrK/HmEPf2ubm5aO9meEbfTM305+kX0AAAAAAAtDBAAwAAAADQ
+wgANAAAAAEALAzQAAAAAAC0M0AAAAAAAtDBAAwAAAADQwgANAAAAAEALAzQAAAAAAC0M0AAAAAAA
+tDBAAwAAAADQwgANAAAAAEALAzQAAAAAAC0M0AAAAAAAtDBAAwAAAADQwgANAAAAAEALAzQAAAAA
+AC0M0AAAAAAAtDBAAwAAAADQwgANAAAAAEALAzQAAAAAAC0M0AAAAAAAtDBAAwAAAADQwgANAAAA
+AEALAzQAAAAAAC0M0AAAAAAAtDBAAwAAAADQwgANAAAAAECL/wGeSDxbIHfekgAAAABJRU5ErkJg
+gg==
+" transform="translate(527, 47)"/>
+</g>
+</svg>
+<hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../time_series/time_series/">« Time Series Analysis</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Thursday 5 December 2019 16:42">Thursday 5 December 2019</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
