@@ -40,7 +40,7 @@ p = minimize(norm(X) + y, 2 * X &lt;= 1, X&#39; + y &gt;= 1, X &gt;= 0, y &gt;= 
 solve!(p, solver)
 println(round.(X.value, digits=2))
 println(y.value)
-p.optval</code></pre><pre><code class="language-none">1.0000000000227023</code></pre><h3 id="Norm,-exponential-and-geometric-mean-1"><a class="docs-heading-anchor" href="#Norm,-exponential-and-geometric-mean-1">Norm, exponential and geometric mean</a><a class="docs-heading-anchor-permalink" href="#Norm,-exponential-and-geometric-mean-1" title="Permalink"></a></h3><div>\[\begin{array}{ll}
+p.optval</code></pre><pre><code class="language-none">1.0000000000226725</code></pre><h3 id="Norm,-exponential-and-geometric-mean-1"><a class="docs-heading-anchor" href="#Norm,-exponential-and-geometric-mean-1">Norm, exponential and geometric mean</a><a class="docs-heading-anchor-permalink" href="#Norm,-exponential-and-geometric-mean-1" title="Permalink"></a></h3><div>\[\begin{array}{ll}
   \text{satisfy} &amp; \| x \|_2 \leq 100 \\
   &amp; e^{x_1} \leq 5 \\
   &amp; x_2 \geq 7 \\
@@ -51,19 +51,19 @@ solve!(p, SCS.Optimizer(verbose=0))
 println(p.status)
 x.value</code></pre><pre><code class="language-none">4×1 Array{Float64,2}:
   0.0              
-  9.792376428098521
- 14.180784526931346
- 14.180784526931346</code></pre><h3 id="SDP-cone-and-Eigenvalues-1"><a class="docs-heading-anchor" href="#SDP-cone-and-Eigenvalues-1">SDP cone and Eigenvalues</a><a class="docs-heading-anchor-permalink" href="#SDP-cone-and-Eigenvalues-1" title="Permalink"></a></h3><pre><code class="language-julia">y = Semidefinite(2)
+  9.792376428098947
+ 14.180784526931312
+ 14.180784526931312</code></pre><h3 id="SDP-cone-and-Eigenvalues-1"><a class="docs-heading-anchor" href="#SDP-cone-and-Eigenvalues-1">SDP cone and Eigenvalues</a><a class="docs-heading-anchor-permalink" href="#SDP-cone-and-Eigenvalues-1" title="Permalink"></a></h3><pre><code class="language-julia">y = Semidefinite(2)
 p = maximize(lambdamin(y), tr(y)&lt;=6)
 solve!(p, SCS.Optimizer(verbose=0))
-p.optval</code></pre><pre><code class="language-none">2.9999999002779343</code></pre><pre><code class="language-julia">x = Variable()
+p.optval</code></pre><pre><code class="language-none">2.999999994406409</code></pre><pre><code class="language-julia">x = Variable()
 y = Variable((2, 2))
 # SDP constraints
 p = minimize(x + y[1, 1], isposdef(y), x &gt;= 1, y[2, 1] == 1)
 solve!(p, solver)
 y.value</code></pre><pre><code class="language-none">2×2 Array{Float64,2}:
- -1.92909e-6  0.999998 
-  0.999999    2.66326e5</code></pre><h3 id="Mixed-integer-program-1"><a class="docs-heading-anchor" href="#Mixed-integer-program-1">Mixed integer program</a><a class="docs-heading-anchor-permalink" href="#Mixed-integer-program-1" title="Permalink"></a></h3><div>\[\begin{array}{ll}
+ -3.44809e-6  0.999994 
+  0.999994    2.77199e5</code></pre><h3 id="Mixed-integer-program-1"><a class="docs-heading-anchor" href="#Mixed-integer-program-1">Mixed integer program</a><a class="docs-heading-anchor-permalink" href="#Mixed-integer-program-1" title="Permalink"></a></h3><div>\[\begin{array}{ll}
   \text{minimize} &amp; \sum_{i=1}^n x_i \\
     \text{subject to} &amp; x \in \mathbb{Z}^n \\
   &amp; x \geq 0.5 \\
@@ -75,4 +75,4 @@ x.value</code></pre><pre><code class="language-none">4×1 Array{Float64,2}:
  1.0
  1.0
  1.0
- 1.0</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../DCP_analysis/">« DCP analysis</a><a class="docs-footer-nextpage" href="../chebyshev_center/">Chebyshev center »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Thursday 5 December 2019 18:32">Thursday 5 December 2019</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+ 1.0</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../DCP_analysis/">« DCP analysis</a><a class="docs-footer-nextpage" href="../chebyshev_center/">Chebyshev center »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Friday 6 December 2019 02:51">Friday 6 December 2019</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
