@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Convex Optimization in Julia · Convex.jl</title><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../../assets/documenter.js"></script><script src="../../../siteinfo.js"></script><script src="../../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">Convex.jl</span></div><form class="docs-search" action="../../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../../">Home</a></li><li><a class="tocitem" href="../../../installation/">Installation</a></li><li><a class="tocitem" href="../../../quick_tutorial/">Quick Tutorial</a></li><li><a class="tocitem" href="../../../types/">Basic Types</a></li><li><a class="tocitem" href="../../../operations/">Supported Operations</a></li><li><a class="tocitem" href="../../../complex-domain_optimization/">Complex-domain Optimization</a></li><li><a class="tocitem" href="../../../solvers/">Solvers</a></li><li><a class="tocitem" href="../../../faq/">FAQ</a></li><li><a class="tocitem" href="../../../advanced/">Advanced</a></li><li><a class="tocitem" href="../../../problem_depot/">Problem Depot</a></li><li><a class="tocitem" href="../../../contributing/">Contributing</a></li><li><a class="tocitem" href="../../../credits/">Credits</a></li><li><span class="tocitem">Examples</span><ul><li><input class="collapse-toggle" id="menuitem-13-1" type="checkbox"/><label class="tocitem" for="menuitem-13-1"><span class="docs-label">General examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../general_examples/DCP_analysis/">DCP analysis</a></li><li><a class="tocitem" href="../../general_examples/basic_usage/">Basic Usage</a></li><li><a class="tocitem" href="../../general_examples/chebyshev_center/">Chebyshev center</a></li><li><a class="tocitem" href="../../general_examples/control/">Control</a></li><li><a class="tocitem" href="../../general_examples/huber_regression/">Huber regression</a></li><li><a class="tocitem" href="../../general_examples/logistic_regression/">Logistic regression</a></li><li><a class="tocitem" href="../../general_examples/max_entropy/">Entropy Maximization</a></li><li><a class="tocitem" href="../../general_examples/optimal_advertising/">Optimal advertising</a></li><li><a class="tocitem" href="../../general_examples/robust_approx_fitting/">Robust approximate fitting</a></li><li><a class="tocitem" href="../../general_examples/svm/">Support vector machine</a></li><li><a class="tocitem" href="../../general_examples/svm_l1regularization/">SVM with L^1 regularization</a></li><li><a class="tocitem" href="../../general_examples/trade_off_curves/">Trade-off curves</a></li><li><a class="tocitem" href="../../general_examples/worst_case_analysis/">Worst case risk analysis</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-2" type="checkbox"/><label class="tocitem" for="menuitem-13-2"><span class="docs-label">Mixed integer</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../mixed_integer/binary_knapsack/">Binary (or 0-1) knapsack problem</a></li><li><a class="tocitem" href="../../mixed_integer/n_queens/">N queens</a></li><li><a class="tocitem" href="../../mixed_integer/section_allocation/">Section Allocation</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-3" type="checkbox"/><label class="tocitem" for="menuitem-13-3"><span class="docs-label">Optimization with complex variables</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../optimization_with_complex_variables/Fidelity in Quantum Information Theory/">Fidelity in quantum information theory</a></li><li><a class="tocitem" href="../../optimization_with_complex_variables/phase_recovery_using_MaxCut/">Phase recovery using MaxCut</a></li><li><a class="tocitem" href="../../optimization_with_complex_variables/povm_simulation/">POVM simulation</a></li><li><a class="tocitem" href="../../optimization_with_complex_variables/power_flow_optimization/">Power flow optimization</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-4" type="checkbox"/><label class="tocitem" for="menuitem-13-4"><span class="docs-label">Portfolio optimization</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../portfolio_optimization/portfolio_optimization/">Portfolio Optimization</a></li><li><a class="tocitem" href="../../portfolio_optimization/portfolio_optimization2/">Portfolio Optimization - Markowitz Efficient Frontier</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-5" type="checkbox" checked/><label class="tocitem" for="menuitem-13-5"><span class="docs-label">Supplemental material</span><i class="docs-chevron"></i></label><ul class="collapsed"><li class="is-active"><a class="tocitem" href>Convex Optimization in Julia</a><ul class="internal"><li><a class="tocitem" href="#Madeleine-Udell-ISMP-2015-1"><span>Madeleine Udell | ISMP 2015</span></a></li><li><a class="tocitem" href="#Convex.jl-team-1"><span>Convex.jl team</span></a></li><li><a class="tocitem" href="#Collaborators/Inspiration:-1"><span>Collaborators/Inspiration:</span></a></li><li class="toplevel"><a class="tocitem" href="#Quick-convex-prototyping-1"><span>Quick convex prototyping</span></a></li><li><a class="tocitem" href="#Variables-1"><span>Variables</span></a></li><li class="toplevel"><a class="tocitem" href="#Expressions-1"><span>Expressions</span></a></li><li class="toplevel"><a class="tocitem" href="#Constraints-1"><span>Constraints</span></a></li><li class="toplevel"><a class="tocitem" href="#Problems-1"><span>Problems</span></a></li><li><a class="tocitem" href="#Pass-to-solver-1"><span>Pass to solver</span></a></li><li><a class="tocitem" href="#Warmstart-1"><span>Warmstart</span></a></li><li class="toplevel"><a class="tocitem" href="#DCP-examples-1"><span>DCP examples</span></a></li></ul></li><li><a class="tocitem" href="../paper_examples/">Paper examples</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-6" type="checkbox"/><label class="tocitem" for="menuitem-13-6"><span class="docs-label">Time series</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../time_series/time_series/">Time Series Analysis</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-13-7" type="checkbox"/><label class="tocitem" for="menuitem-13-7"><span class="docs-label">Tomography</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../tomography/tomography/">Tomography</a></li></ul></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Examples</a></li><li><a class="is-disabled">Supplemental material</a></li><li class="is-active"><a href>Convex Optimization in Julia</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Convex Optimization in Julia</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/JuliaOpt/Convex.jl/blob/master/docs/examples_literate/supplemental_material/Convex.jl_intro_ISMP2015.jl" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><p>All of the examples can be found in Jupyter notebook form <a href="../../notebooks.zip">here</a>.</p><h1 id="Convex-Optimization-in-Julia-1"><a class="docs-heading-anchor" href="#Convex-Optimization-in-Julia-1">Convex Optimization in Julia</a><a class="docs-heading-anchor-permalink" href="#Convex-Optimization-in-Julia-1" title="Permalink"></a></h1><h2 id="Madeleine-Udell-ISMP-2015-1"><a class="docs-heading-anchor" href="#Madeleine-Udell-ISMP-2015-1">Madeleine Udell | ISMP 2015</a><a class="docs-heading-anchor-permalink" href="#Madeleine-Udell-ISMP-2015-1" title="Permalink"></a></h2><h2 id="Convex.jl-team-1"><a class="docs-heading-anchor" href="#Convex.jl-team-1">Convex.jl team</a><a class="docs-heading-anchor-permalink" href="#Convex.jl-team-1" title="Permalink"></a></h2><ul><li><a href="https://github.com/cvxgrp/Convex.jl">Convex.jl</a>: Madeleine Udell, Karanveer Mohan, David Zeng, Jenny Hong</li></ul><h2 id="Collaborators/Inspiration:-1"><a class="docs-heading-anchor" href="#Collaborators/Inspiration:-1">Collaborators/Inspiration:</a><a class="docs-heading-anchor-permalink" href="#Collaborators/Inspiration:-1" title="Permalink"></a></h2><ul><li><a href="http://www.cvxr.com">CVX</a>: Michael Grant, Stephen Boyd</li><li><a href="https://github.com/cvxgrp/cvxpy">CVXPY</a>: Steven Diamond, Eric Chu, Stephen Boyd</li><li><a href="https://github.com/JuliaOpt">JuliaOpt</a>: Miles Lubin, Iain Dunning, Joey Huchette</li></ul><pre><code class="language-julia"># initial package installation</code></pre><pre><code class="language-julia"># Make the Convex.jl module available
+using Convex, SparseArrays, LinearAlgebra
+using SCS # first order splitting conic solver [O&#39;Donoghue et al., 2014]
+
+# Generate random problem data
+m = 50;  n = 100
+A = randn(m, n)
+x♮ = sprand(n, 1, .5) # true (sparse nonnegative) parameter vector
+noise = .1*randn(m)    # gaussian noise
+b = A*x♮ + noise      # noisy linear observations
+
+# Create a (column vector) variable of size n.
+x = Variable(n)
+
+# nonnegative elastic net with regularization
+λ = 1
+μ = 1
+problem = minimize(square(norm(A * x - b)) + λ*square(norm(x)) + μ*norm(x, 1),
+                   x &gt;= 0)
+
+# Solve the problem by calling solve!
+solve!(problem, SCS.Optimizer(verbose=0))
+
+println(&quot;problem status is &quot;, problem.status) # :Optimal, :Infeasible, :Unbounded etc.
+println(&quot;optimal value is &quot;, problem.optval)</code></pre><pre><code class="language-none">problem status is OPTIMAL
+optimal value is 32.81676511626289</code></pre><pre><code class="language- jl_intro_ISMP2015">using Interact, Plots
+# Interact.WebIO.install_jupyter_nbextension() # might be helpful if you see `WebIO` warnings in Jupyter
+@manipulate throttle=.1 for λ=0:.1:5, μ=0:.1:5
+    global A
+    problem = minimize(square(norm(A * x - b)) + λ*square(norm(x)) + μ*norm(x, 1),
+                   x &gt;= 0)
+    solve!(problem, SCS.Optimizer(verbose=0))
+    histogram(evaluate(x), xlims=(0,3.5), label=&quot;x&quot;)
+end</code></pre><h1 id="Quick-convex-prototyping-1"><a class="docs-heading-anchor" href="#Quick-convex-prototyping-1">Quick convex prototyping</a><a class="docs-heading-anchor-permalink" href="#Quick-convex-prototyping-1" title="Permalink"></a></h1><h2 id="Variables-1"><a class="docs-heading-anchor" href="#Variables-1">Variables</a><a class="docs-heading-anchor-permalink" href="#Variables-1" title="Permalink"></a></h2><pre><code class="language-julia"># Scalar variable
+x = Variable()</code></pre><pre><code class="language-none">Variable
+size: (1, 1)
+sign: real
+vexity: affine
+id: 580…639</code></pre><pre><code class="language-julia"># (Column) vector variable
+y = Variable(4)</code></pre><pre><code class="language-none">Variable
+size: (4, 1)
+sign: real
+vexity: affine
+id: 866…081</code></pre><pre><code class="language-julia"># Matrix variable
+Z = Variable(4, 4)</code></pre><pre><code class="language-none">Variable
+size: (4, 4)
+sign: real
+vexity: affine
+id: 130…636</code></pre><h1 id="Expressions-1"><a class="docs-heading-anchor" href="#Expressions-1">Expressions</a><a class="docs-heading-anchor-permalink" href="#Expressions-1" title="Permalink"></a></h1><p>Convex.jl allows you to use a <a href="http://convexjl.readthedocs.org/en/latest/operations.html">wide variety of functions</a> on variables and on expressions to form new expressions.</p><pre><code class="language-julia">x + 2x</code></pre><pre><code class="language-none">+ (affine; real)
+├─ real variable (id: 580…639)
+└─ * (affine; real)
+   ├─ 2
+   └─ real variable (id: 580…639)</code></pre><pre><code class="language-julia">e = y[1] + logdet(Z) + sqrt(x) + minimum(y)</code></pre><pre><code class="language-none">+ (concave; real)
+├─ index (affine; real)
+│  └─ 4-element real variable (id: 866…081)
+├─ logdet (concave; real)
+│  └─ 4×4 real variable (id: 130…636)
+├─ geomean (concave; positive)
+│  ├─ real variable (id: 580…639)
+│  └─ [1.0]
+└─ minimum (concave; real)
+   └─ 4-element real variable (id: 866…081)</code></pre><h3 id="Examine-the-expression-tree-1"><a class="docs-heading-anchor" href="#Examine-the-expression-tree-1">Examine the expression tree</a><a class="docs-heading-anchor-permalink" href="#Examine-the-expression-tree-1" title="Permalink"></a></h3><pre><code class="language-julia">e.children[2]</code></pre><pre><code class="language-none">logdet (concave; real)
+└─ 4×4 real variable (id: 130…636)</code></pre><h1 id="Constraints-1"><a class="docs-heading-anchor" href="#Constraints-1">Constraints</a><a class="docs-heading-anchor-permalink" href="#Constraints-1" title="Permalink"></a></h1><p>A constraint is convex if convex combinations of feasible points are also feasible. Equivalently, feasible sets are convex sets.</p><p>In other words, convex constraints are of the form</p><ul><li><code>convexExpr &lt;= 0</code></li><li><code>concaveExpr &gt;= 0</code></li><li><code>affineExpr == 0</code></li></ul><pre><code class="language-julia">x &lt;= 0</code></pre><pre><code class="language-none">&lt;= constraint (affine)
+├─ real variable (id: 580…639)
+└─ 0</code></pre><pre><code class="language-julia">square(x) &lt;= sum(y)</code></pre><pre><code class="language-none">&lt;= constraint (convex)
+├─ qol_elem (convex; positive)
+│  ├─ real variable (id: 580…639)
+│  └─ [1.0]
+└─ sum (affine; real)
+   └─ 4-element real variable (id: 866…081)</code></pre><pre><code class="language-julia">M = Z
+for i = 1:length(y)
+    global M += rand(size(Z)...)*y[i]
+end
+M ⪰ 0</code></pre><pre><code class="language-none">sdp constraint (affine)
+└─ + (affine; real)
+   ├─ 4×4 real variable (id: 130…636)
+   ├─ * (affine; real)
+   │  ├─ 4×4 Array{Float64,2}
+   │  └─ index (affine; real)
+   │     └─ …
+   ├─ * (affine; real)
+   │  ├─ 4×4 Array{Float64,2}
+   │  └─ index (affine; real)
+   │     └─ …
+   ├─ * (affine; real)
+   │  ├─ 4×4 Array{Float64,2}
+   │  └─ index (affine; real)
+   │     └─ …
+   └─ * (affine; real)
+      ├─ 4×4 Array{Float64,2}
+      └─ index (affine; real)
+         └─ …</code></pre><h1 id="Problems-1"><a class="docs-heading-anchor" href="#Problems-1">Problems</a><a class="docs-heading-anchor-permalink" href="#Problems-1" title="Permalink"></a></h1><pre><code class="language-julia">x = Variable()
+y = Variable(4)
+objective = 2*x + 1 - sqrt(sum(y))
+constraint = x &gt;= maximum(y)
+p = minimize(objective, constraint)</code></pre><pre><code class="language-none">minimize
+└─ + (convex; real)
+   ├─ * (affine; real)
+   │  ├─ 2
+   │  └─ real variable (id: 675…968)
+   ├─ 1
+   └─ - (convex; negative)
+      └─ geomean (concave; positive)
+         ├─ …
+         └─ …
+subject to
+└─ &gt;= constraint (convex)
+   ├─ real variable (id: 675…968)
+   └─ maximum (convex; real)
+      └─ 4-element real variable (id: 819…444)
+
+status: `solve!` not called yet</code></pre><pre><code class="language-julia"># solve the problem
+solve!(p, SCS.Optimizer(verbose=0))
+p.status</code></pre><pre><code class="language-none">OPTIMAL::TerminationStatusCode = 1</code></pre><pre><code class="language-julia">x.value</code></pre><pre><code class="language-none">0.2500000000385289</code></pre><pre><code class="language-julia"># can evaluate expressions directly
+evaluate(objective)</code></pre><pre><code class="language-none">1×1 Array{Float64,2}:
+ 0.5000000000686586</code></pre><h2 id="Pass-to-solver-1"><a class="docs-heading-anchor" href="#Pass-to-solver-1">Pass to solver</a><a class="docs-heading-anchor-permalink" href="#Pass-to-solver-1" title="Permalink"></a></h2><p>call a <code>MathProgBase</code> solver suited for your problem class</p><ul><li>see the <a href="http://convexjl.readthedocs.org/en/latest/operations.html">list of Convex.jl operations</a> to find which cones you&#39;re using</li><li>see the <a href="http://www.juliaopt.org/">list of solvers</a> for an up-to-date list of solvers and which cones they support</li></ul><p>to solve problem using a different solver, just import the solver package and pass the solver to the <code>solve!</code> method: eg</p><pre><code class="language-none">using Mosek
+solve!(p, Mosek.Optimizer())</code></pre><h2 id="Warmstart-1"><a class="docs-heading-anchor" href="#Warmstart-1">Warmstart</a><a class="docs-heading-anchor-permalink" href="#Warmstart-1" title="Permalink"></a></h2><pre><code class="language-julia"># Generate random problem data
+m = 50;  n = 100
+A = randn(m, n)
+x♮ = sprand(n, 1, .5) # true (sparse nonnegative) parameter vector
+noise = .1*randn(m)    # gaussian noise
+b = A*x♮ + noise      # noisy linear observations
+
+# Create a (column vector) variable of size n.
+x = Variable(n)
+
+# nonnegative elastic net with regularization
+λ = 1
+μ = 1
+problem = minimize(square(norm(A * x - b)) + λ*square(norm(x)) + μ*norm(x, 1),
+                   x &gt;= 0)
+@time solve!(problem, SCS.Optimizer(verbose=0))
+λ = 1.5
+@time solve!(problem, SCS.Optimizer(verbose=0), warmstart = true)</code></pre><pre><code class="language-none">  0.144740 seconds (7.19 k allocations: 3.057 MiB)
+  0.870367 seconds (1.57 M allocations: 81.878 MiB, 6.06% gc time)</code></pre><h1 id="DCP-examples-1"><a class="docs-heading-anchor" href="#DCP-examples-1">DCP examples</a><a class="docs-heading-anchor-permalink" href="#DCP-examples-1" title="Permalink"></a></h1><pre><code class="language-julia"># affine
+x = Variable(4)
+y = Variable(2)
+sum(x) + y[2]</code></pre><pre><code class="language-none">+ (affine; real)
+├─ sum (affine; real)
+│  └─ 4-element real variable (id: 795…188)
+└─ index (affine; real)
+   └─ 2-element real variable (id: 337…415)</code></pre><pre><code class="language-julia">2*maximum(x) + 4*sum(y) - sqrt(y[1] + x[1]) - 7 * minimum(x[2:4])</code></pre><pre><code class="language-none">+ (convex; real)
+├─ * (convex; real)
+│  ├─ 2
+│  └─ maximum (convex; real)
+│     └─ 4-element real variable (id: 795…188)
+├─ * (affine; real)
+│  ├─ 4
+│  └─ sum (affine; real)
+│     └─ 2-element real variable (id: 337…415)
+├─ - (convex; negative)
+│  └─ geomean (concave; positive)
+│     ├─ + (affine; real)
+│     │  ├─ …
+│     │  └─ …
+│     └─ [1.0]
+└─ - (convex; real)
+   └─ * (concave; real)
+      ├─ 7
+      └─ minimum (concave; real)
+         └─ …</code></pre><pre><code class="language-julia"># not dcp compliant
+log(x) + square(x)</code></pre><pre><code class="language-none">+ (Convex.NotDcp; real)
+├─ log (concave; real)
+│  └─ 4-element real variable (id: 795…188)
+└─ qol_elem (convex; positive)
+   ├─ 4-element real variable (id: 795…188)
+   └─ 4×1 Array{Float64,2}</code></pre><pre><code class="language-julia"># $f$ is convex increasing and $g$ is convex
+square(pos(x))</code></pre><pre><code class="language-none">qol_elem (convex; positive)
+├─ max (convex; positive)
+│  ├─ 4-element real variable (id: 795…188)
+│  └─ 0
+└─ 4×1 Array{Float64,2}</code></pre><pre><code class="language-julia"># $f$ is convex decreasing and $g$ is concave
+invpos(sqrt(x))</code></pre><pre><code class="language-none">qol_elem (convex; positive)
+├─ 4×1 Array{Float64,2}
+└─ geomean (concave; positive)
+   ├─ 4-element real variable (id: 795…188)
+   └─ 4×1 Array{Float64,2}</code></pre><pre><code class="language-julia"># $f$ is concave increasing and $g$ is concave
+sqrt(sqrt(x))</code></pre><pre><code class="language-none">geomean (concave; positive)
+├─ geomean (concave; positive)
+│  ├─ 4-element real variable (id: 795…188)
+│  └─ 4×1 Array{Float64,2}
+└─ 4×1 Array{Float64,2}</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../portfolio_optimization/portfolio_optimization2/">« Portfolio Optimization - Markowitz Efficient Frontier</a><a class="docs-footer-nextpage" href="../paper_examples/">Paper examples »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 12 January 2020 23:54">Sunday 12 January 2020</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
