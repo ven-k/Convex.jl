@@ -51,18 +51,18 @@ Variable
 size: (1, 1)
 sign: real
 vexity: affine
-id: 160…370
+id: 165…722
 
 julia&gt; p = maximize( log(x), x &gt;= 1, x &lt;= 3 )
 maximize
 └─ log (concave; real)
-   └─ real variable (id: 160…370)
+   └─ real variable (id: 165…722)
 subject to
 ├─ &gt;= constraint (affine)
-│  ├─ real variable (id: 160…370)
+│  ├─ real variable (id: 165…722)
 │  └─ 1
 └─ &lt;= constraint (affine)
-   ├─ real variable (id: 160…370)
+   ├─ real variable (id: 165…722)
    └─ 3
 
 status: `solve!` not called yet
@@ -70,19 +70,19 @@ status: `solve!` not called yet
 julia&gt; for leaf in AbstractTrees.Leaves(p)
            println(&quot;Here&#39;s a leaf: $(summary(leaf))&quot;)
        end
-Here&#39;s a leaf: real variable (id: 160…370)
-Here&#39;s a leaf: real variable (id: 160…370)
+Here&#39;s a leaf: real variable (id: 165…722)
+Here&#39;s a leaf: real variable (id: 165…722)
 Here&#39;s a leaf: constant (constant; positive)
-Here&#39;s a leaf: real variable (id: 160…370)
+Here&#39;s a leaf: real variable (id: 165…722)
 Here&#39;s a leaf: constant (constant; positive)</code></pre><p>We can also iterate over the problem in various orders. The following descriptions are taken from the AbstractTrees.jl docstrings, which have more information.</p><h3 id="PostOrderDFS-1"><a class="docs-heading-anchor" href="#PostOrderDFS-1">PostOrderDFS</a><a class="docs-heading-anchor-permalink" href="#PostOrderDFS-1" title="Permalink"></a></h3><p>Iterator to visit the nodes of a tree, guaranteeing that children will be visited before their parents.</p><pre><code class="language-julia-repl">julia&gt; for (i, node) in enumerate(AbstractTrees.PostOrderDFS(p))
            println(&quot;Here&#39;s node $i via PostOrderDFS: $(summary(node))&quot;)
        end
-Here&#39;s node 1 via PostOrderDFS: real variable (id: 160…370)
+Here&#39;s node 1 via PostOrderDFS: real variable (id: 165…722)
 Here&#39;s node 2 via PostOrderDFS: log (concave; real)
-Here&#39;s node 3 via PostOrderDFS: real variable (id: 160…370)
+Here&#39;s node 3 via PostOrderDFS: real variable (id: 165…722)
 Here&#39;s node 4 via PostOrderDFS: constant (constant; positive)
 Here&#39;s node 5 via PostOrderDFS: &gt;= constraint (affine)
-Here&#39;s node 6 via PostOrderDFS: real variable (id: 160…370)
+Here&#39;s node 6 via PostOrderDFS: real variable (id: 165…722)
 Here&#39;s node 7 via PostOrderDFS: constant (constant; positive)
 Here&#39;s node 8 via PostOrderDFS: &lt;= constraint (affine)
 Here&#39;s node 9 via PostOrderDFS: 2-element Array{Convex.Constraint,1}
@@ -91,23 +91,23 @@ Here&#39;s node 10 via PostOrderDFS: Problem{Float64}</code></pre><h3 id="PreOrd
        end
 Here&#39;s node 1 via PreOrderDFS: Problem{Float64}
 Here&#39;s node 2 via PreOrderDFS: log (concave; real)
-Here&#39;s node 3 via PreOrderDFS: real variable (id: 160…370)
+Here&#39;s node 3 via PreOrderDFS: real variable (id: 165…722)
 Here&#39;s node 4 via PreOrderDFS: 2-element Array{Convex.Constraint,1}
 Here&#39;s node 5 via PreOrderDFS: &gt;= constraint (affine)
-Here&#39;s node 6 via PreOrderDFS: real variable (id: 160…370)
+Here&#39;s node 6 via PreOrderDFS: real variable (id: 165…722)
 Here&#39;s node 7 via PreOrderDFS: constant (constant; positive)
 Here&#39;s node 8 via PreOrderDFS: &lt;= constraint (affine)
-Here&#39;s node 9 via PreOrderDFS: real variable (id: 160…370)
+Here&#39;s node 9 via PreOrderDFS: real variable (id: 165…722)
 Here&#39;s node 10 via PreOrderDFS: constant (constant; positive)</code></pre><h3 id="StatelessBFS-1"><a class="docs-heading-anchor" href="#StatelessBFS-1">StatelessBFS</a><a class="docs-heading-anchor-permalink" href="#StatelessBFS-1" title="Permalink"></a></h3><p>Iterator to visit the nodes of a tree, guaranteeing that all nodes of a level will be visited before their children.</p><pre><code class="language-julia-repl">julia&gt; for (i, node) in enumerate(AbstractTrees.StatelessBFS(p))
            println(&quot;Here&#39;s node $i via StatelessBFS: $(summary(node))&quot;)
        end
 Here&#39;s node 1 via StatelessBFS: Problem{Float64}
 Here&#39;s node 2 via StatelessBFS: log (concave; real)
 Here&#39;s node 3 via StatelessBFS: 2-element Array{Convex.Constraint,1}
-Here&#39;s node 4 via StatelessBFS: real variable (id: 160…370)
+Here&#39;s node 4 via StatelessBFS: real variable (id: 165…722)
 Here&#39;s node 5 via StatelessBFS: &gt;= constraint (affine)
 Here&#39;s node 6 via StatelessBFS: &lt;= constraint (affine)
-Here&#39;s node 7 via StatelessBFS: real variable (id: 160…370)
+Here&#39;s node 7 via StatelessBFS: real variable (id: 165…722)
 Here&#39;s node 8 via StatelessBFS: constant (constant; positive)
-Here&#39;s node 9 via StatelessBFS: real variable (id: 160…370)
-Here&#39;s node 10 via StatelessBFS: constant (constant; positive)</code></pre><h2 id="Reference-1"><a class="docs-heading-anchor" href="#Reference-1">Reference</a><a class="docs-heading-anchor-permalink" href="#Reference-1" title="Permalink"></a></h2><article class="docstring"><header><a class="docstring-binding" id="Convex.MAXDEPTH" href="#Convex.MAXDEPTH"><code>Convex.MAXDEPTH</code></a> — <span class="docstring-category">Constant</span></header><section><div><pre><code class="language-julia">const MAXDEPTH = Ref(3)</code></pre><p>Controls depth of tree printing globally for Convex.jl</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/JuliaOpt/Convex.jl/blob/32aeff82fa91d25d396758d5f646962d4a166565/src/utilities/show.jl#LL4-L8">source</a></section></article><article class="docstring"><header><a class="docstring-binding" id="Convex.MAXWIDTH" href="#Convex.MAXWIDTH"><code>Convex.MAXWIDTH</code></a> — <span class="docstring-category">Constant</span></header><section><div><pre><code class="language-julia">const MAXWIDTH = Ref(15)</code></pre><p>Controls width of tree printing globally for Convex.jl</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/JuliaOpt/Convex.jl/blob/32aeff82fa91d25d396758d5f646962d4a166565/src/utilities/show.jl#LL11-L15">source</a></section></article></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../faq/">« FAQ</a><a class="docs-footer-nextpage" href="../problem_depot/">Problem Depot »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Friday 21 February 2020 02:27">Friday 21 February 2020</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+Here&#39;s node 9 via StatelessBFS: real variable (id: 165…722)
+Here&#39;s node 10 via StatelessBFS: constant (constant; positive)</code></pre><h2 id="Reference-1"><a class="docs-heading-anchor" href="#Reference-1">Reference</a><a class="docs-heading-anchor-permalink" href="#Reference-1" title="Permalink"></a></h2><article class="docstring"><header><a class="docstring-binding" id="Convex.MAXDEPTH" href="#Convex.MAXDEPTH"><code>Convex.MAXDEPTH</code></a> — <span class="docstring-category">Constant</span></header><section><div><pre><code class="language-julia">const MAXDEPTH = Ref(3)</code></pre><p>Controls depth of tree printing globally for Convex.jl</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/JuliaOpt/Convex.jl/blob/fd1a745cb9f64df74913f3259f292db991fbfd65/src/utilities/show.jl#LL4-L8">source</a></section></article><article class="docstring"><header><a class="docstring-binding" id="Convex.MAXWIDTH" href="#Convex.MAXWIDTH"><code>Convex.MAXWIDTH</code></a> — <span class="docstring-category">Constant</span></header><section><div><pre><code class="language-julia">const MAXWIDTH = Ref(15)</code></pre><p>Controls width of tree printing globally for Convex.jl</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/JuliaOpt/Convex.jl/blob/fd1a745cb9f64df74913f3259f292db991fbfd65/src/utilities/show.jl#LL11-L15">source</a></section></article></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../faq/">« FAQ</a><a class="docs-footer-nextpage" href="../problem_depot/">Problem Depot »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Monday 24 February 2020 04:35">Monday 24 February 2020</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
