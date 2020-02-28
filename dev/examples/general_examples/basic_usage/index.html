@@ -7,7 +7,7 @@ end
 
 using SCS
 # passing in verbose=0 to hide output from SCS
-solver = SCS.Optimizer(verbose=0)</code></pre><pre><code class="language-none">SCS.Optimizer</code></pre><h3 id="Linear-program-1"><a class="docs-heading-anchor" href="#Linear-program-1">Linear program</a><a class="docs-heading-anchor-permalink" href="#Linear-program-1" title="Permalink"></a></h3><div>\[\begin{array}{ll}
+solver = () -&gt; SCS.Optimizer(verbose=0)</code></pre><pre><code class="language-none">#1 (generic function with 1 method)</code></pre><h3 id="Linear-program-1"><a class="docs-heading-anchor" href="#Linear-program-1">Linear program</a><a class="docs-heading-anchor-permalink" href="#Linear-program-1" title="Permalink"></a></h3><div>\[\begin{array}{ll}
   \text{maximize} &amp; c^T x \\
   \text{subject to} &amp; A x \leq b\\
   &amp; x \geq 1 \\
@@ -40,14 +40,14 @@ p = minimize(norm(X) + y, 2 * X &lt;= 1, X&#39; + y &gt;= 1, X &gt;= 0, y &gt;= 
 solve!(p, solver)
 println(round.(X.value, digits=2))
 println(y.value)
-p.optval</code></pre><pre><code class="language-none">1.0000000000226725</code></pre><h3 id="Norm,-exponential-and-geometric-mean-1"><a class="docs-heading-anchor" href="#Norm,-exponential-and-geometric-mean-1">Norm, exponential and geometric mean</a><a class="docs-heading-anchor-permalink" href="#Norm,-exponential-and-geometric-mean-1" title="Permalink"></a></h3><div>\[\begin{array}{ll}
+p.optval</code></pre><pre><code class="language-none">1.0000000000958609</code></pre><h3 id="Norm,-exponential-and-geometric-mean-1"><a class="docs-heading-anchor" href="#Norm,-exponential-and-geometric-mean-1">Norm, exponential and geometric mean</a><a class="docs-heading-anchor-permalink" href="#Norm,-exponential-and-geometric-mean-1" title="Permalink"></a></h3><div>\[\begin{array}{ll}
   \text{satisfy} &amp; \| x \|_2 \leq 100 \\
   &amp; e^{x_1} \leq 5 \\
   &amp; x_2 \geq 7 \\
   &amp; \sqrt{x_3 x_4} \geq x_2
 \end{array}\]</div><pre><code class="language-julia">x = Variable(4)
 p = satisfy(norm(x) &lt;= 100, exp(x[1]) &lt;= 5, x[2] &gt;= 7, geomean(x[3], x[4]) &gt;= x[2])
-solve!(p, SCS.Optimizer(verbose=0))
+solve!(p, solver)
 println(p.status)
 x.value</code></pre><pre><code class="language-none">4×1 Array{Float64,2}:
   0.0              
@@ -55,7 +55,7 @@ x.value</code></pre><pre><code class="language-none">4×1 Array{Float64,2}:
  14.180784526931312
  14.180784526931312</code></pre><h3 id="SDP-cone-and-Eigenvalues-1"><a class="docs-heading-anchor" href="#SDP-cone-and-Eigenvalues-1">SDP cone and Eigenvalues</a><a class="docs-heading-anchor-permalink" href="#SDP-cone-and-Eigenvalues-1" title="Permalink"></a></h3><pre><code class="language-julia">y = Semidefinite(2)
 p = maximize(eigmin(y), tr(y)&lt;=6)
-solve!(p, SCS.Optimizer(verbose=0))
+solve!(p, solver)
 p.optval</code></pre><pre><code class="language-none">2.999999994406409</code></pre><pre><code class="language-julia">x = Variable()
 y = Variable((2, 2))
 # SDP constraints
@@ -70,9 +70,9 @@ y.value</code></pre><pre><code class="language-none">2×2 Array{Float64,2}:
 \end{array}\]</div><pre><code class="language-julia">using GLPK
 x = Variable(4, :Int)
 p = minimize(sum(x), x &gt;= 0.5)
-solve!(p, GLPK.Optimizer())
+solve!(p, GLPK.Optimizer)
 x.value</code></pre><pre><code class="language-none">4×1 Array{Float64,2}:
  1.0
  1.0
  1.0
- 1.0</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../DCP_analysis/">« DCP analysis</a><a class="docs-footer-nextpage" href="../chebyshev_center/">Chebyshev center »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Monday 24 February 2020 04:35">Monday 24 February 2020</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+ 1.0</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../DCP_analysis/">« DCP analysis</a><a class="docs-footer-nextpage" href="../chebyshev_center/">Chebyshev center »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Friday 28 February 2020 21:10">Friday 28 February 2020</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
