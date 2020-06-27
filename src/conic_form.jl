@@ -9,6 +9,7 @@
 struct ConicObj
     mapping::OrderedDict{UInt64, Tuple{Value,Value}}
 end
+
 ConicObj() = ConicObj(OrderedDict{UInt64,Tuple{Value,Value}}())
 Base.iterate(c::ConicObj, s...) = iterate(c.mapping, s...)
 Base.keys(c::ConicObj) = keys(c.mapping)
@@ -90,9 +91,9 @@ end
 # See the details of `get_MOI_set` for the full list of symbols used.
 # and we record the sizes of the affine expressions (XXX check...)
 # XXX might it be better to represent objs as a single ConicObj rather than an array of them?
-struct ConicConstr
+struct ConicConstr{C <: Union{Symbol, MOI.AbstractSet}}
     objs::Vector{ConicObj}
-    cone::Symbol
+    cone::C
     sizes::Vector{Int}
 end
 
@@ -106,16 +107,23 @@ const UniqueConstrList = Vector{ConicConstr}
 # map variables' hash to the variable itself 
 const IdToVariables = OrderedDict{UInt64, Variable}
 const ConicConstrToConstr = Dict{ConicConstr, Constraint}
+
+const IdToIndices = OrderedDict{UInt64, Vector{MOI.VariableIndex}}
+const ConicConstrToIndices = Dict{ConicConstr, MOI.ConstraintIndex}
+
 # UniqueConicForms caches all the conic forms of expressions we've parsed so far
-struct UniqueConicForms
+struct UniqueConicForms{T}
     exp_map::UniqueExpMap
     constr_map::UniqueConstrMap
     constr_list::UniqueConstrList
     id_to_variables::IdToVariables
     conic_constr_to_constr::ConicConstrToConstr
+    id_to_indices::IdToIndices
+    model::MOI.ModelLike
+    conic_constr_to_indices::ConicConstrToIndices
 end
 
-UniqueConicForms() = UniqueConicForms(UniqueExpMap(), UniqueConstrMap(), ConicConstr[], IdToVariables(), ConicConstrToConstr())
+UniqueConicForms{T}(model) where {T} = UniqueConicForms{T}(UniqueExpMap(), UniqueConstrMap(), ConicConstr[], IdToVariables(), ConicConstrToConstr(), IdToIndices(), model, ConicConstrToIndices())
 
 function has_conic_form(conic_forms::UniqueConicForms, exp::AbstractExpr)
     return haskey(conic_forms.exp_map, (exp.head, exp.id_hash))
@@ -150,3 +158,5 @@ end
 function add_to_id_to_variables!(conic_forms::UniqueConicForms, var::Variable)
     conic_forms.id_to_variables[var.id_hash] = var
 end
+
+# include("conic_obj_vaf.jl")
