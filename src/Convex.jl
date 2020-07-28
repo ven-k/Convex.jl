@@ -1,6 +1,5 @@
-__precompile__()
-
 module Convex
+
 using OrderedCollections: OrderedDict
 using LinearAlgebra
 using SparseArrays
@@ -15,7 +14,7 @@ const MOIB = MOI.Bridges
 export conv, dotsort, entropy, exp, geomean, hinge_loss, huber, inner_product, invpos
 export log_perspective, logisticloss, logsumexp, matrixfrac, neg, norm2, norm_1, norm_inf, nuclearnorm
 export partialtrace, partialtranspose, pos, qol_elementwise, quadform, quadoverlin, rationalnorm
-export relative_entropy, scaledgeomean, sigmamax, square, sumlargest, sumlargesteigs, sumsmallest, sumsquares
+export relative_entropy, sigmamax, square, sumlargest, sumlargesteigs, sumsmallest, sumsquares
 
 # rexports from LinearAlgebra
 export diag, diagm, Diagonal, dot, eigmax, eigmin, kron, logdet, norm, tr
