@@ -10,8 +10,8 @@ e = 0;
   p = minimize(e, x&gt;=1);
 end
 @time solve!(p, () -&gt; ECOS.Optimizer(verbose=0))</code></pre><pre><code class="language-none">Summation example
-  0.032061 seconds (4.64 k allocations: 11.764 MiB, 47.12% gc time)
-  1.479601 seconds (2.10 M allocations: 104.369 MiB, 5.79% gc time)</code></pre><p>Indexing.</p><pre><code class="language-julia">println(&quot;Indexing example&quot;)
+  0.015542 seconds (4.64 k allocations: 11.763 MiB)
+  1.507673 seconds (2.10 M allocations: 104.374 MiB, 7.03% gc time)</code></pre><p>Indexing.</p><pre><code class="language-julia">println(&quot;Indexing example&quot;)
 x = Variable(1000, 1);
 e = 0;
 @time begin
@@ -22,8 +22,8 @@ e = 0;
   p = minimize(e, x &gt;= ones(1000, 1));
 end
 @time solve!(p, () -&gt; ECOS.Optimizer(verbose=0))</code></pre><pre><code class="language-none">Indexing example
-  0.161207 seconds (125.19 k allocations: 17.634 MiB)
-  0.404272 seconds (586.93 k allocations: 101.890 MiB, 28.01% gc time)</code></pre><p>Matrix constraints.</p><pre><code class="language-julia">println(&quot;Matrix constraint example&quot;)
+  0.187011 seconds (125.19 k allocations: 17.630 MiB, 12.82% gc time)
+  0.403864 seconds (586.92 k allocations: 101.889 MiB, 27.88% gc time)</code></pre><p>Matrix constraints.</p><pre><code class="language-julia">println(&quot;Matrix constraint example&quot;)
 n, m, p = 100, 100, 100
 X = Variable(m, n);
 A = randn(p, m);
@@ -32,8 +32,8 @@ b = randn(p, n);
   p = minimize(norm(vec(X)), A * X == b);
 end
 @time solve!(p, () -&gt; ECOS.Optimizer(verbose=0))</code></pre><pre><code class="language-none">Matrix constraint example
-  0.434527 seconds (259.47 k allocations: 12.133 MiB, 61.17% gc time)
-  2.799557 seconds (851.27 k allocations: 340.280 MiB, 24.38% gc time)</code></pre><p>Transpose.</p><pre><code class="language-julia">println(&quot;Transpose example&quot;)
+  0.175261 seconds (259.47 k allocations: 12.134 MiB)
+  3.174266 seconds (851.27 k allocations: 340.247 MiB, 31.55% gc time)</code></pre><p>Transpose.</p><pre><code class="language-julia">println(&quot;Transpose example&quot;)
 X = Variable(5, 5);
 A = randn(5, 5);
 @time begin
@@ -48,5 +48,5 @@ A = randn(n, n);
   p = minimize(norm(vec(X&#39; - A)), X[1,1] == 1);
   solve!(p, () -&gt; ECOS.Optimizer(verbose=0))
 #end</code></pre><pre><code class="language-none">Transpose example
-  0.046562 seconds (75.96 k allocations: 3.735 MiB)
-  0.032909 seconds (40.84 k allocations: 2.107 MiB)</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Convex.jl_intro_ISMP2015/">« Convex Optimization in Julia</a><a class="docs-footer-nextpage" href="../../time_series/time_series/">Time Series Analysis »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Friday 31 July 2020 18:13">Friday 31 July 2020</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+  0.048716 seconds (75.96 k allocations: 3.735 MiB)
+  0.033982 seconds (40.84 k allocations: 2.107 MiB)</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Convex.jl_intro_ISMP2015/">« Convex Optimization in Julia</a><a class="docs-footer-nextpage" href="../../time_series/time_series/">Time Series Analysis »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Saturday 1 August 2020 17:58">Saturday 1 August 2020</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
