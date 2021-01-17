@@ -26,48 +26,48 @@ c2 = U in :SDP
 p = minimize(objective,c1,c2)
 solve!(p, () -&gt; SCS.Optimizer(verbose=0))
 evaluate(U)</code></pre><pre class="documenter-example-output">20×20 Array{Complex{Float64},2}:
-       1.0-8.2134e-10im    0.956308-0.292362im    …  -0.998327-0.0578206im 
-  0.956308+0.292362im           1.0-2.08589e-9im     -0.937803-0.347167im  
-  0.594865+0.803826im      0.803882+0.594789im       -0.547392-0.836877im  
-  0.482367+0.87597im       0.717391+0.696671im       -0.430911-0.902395im  
-  0.990595+0.136828im      0.987317-0.158763im       -0.981026-0.193875im  
- -0.767393+0.641177im     -0.546408+0.837519im    …   0.803183-0.595733im  
- -0.360777+0.932652im    -0.0723418+0.99738im           0.4141-0.910232im  
- -0.934116+0.356972im     -0.788937+0.614475im        0.953193-0.302363im  
-  0.958386-0.285475im       0.83305-0.553198im       -0.973289+0.229583im  
-  0.984728+0.174104im      0.992604-0.121401im       -0.973013-0.23075im   
- -0.971014+0.239022im     -0.858708+0.512467im    …    0.98321-0.182478im  
-  0.764413+0.644728im      0.919508+0.393073im       -0.725855-0.687848im  
- -0.368793+0.929512im    -0.0809259+0.99672im         0.421921-0.906633im  
-  0.982542+0.186044im      0.994004-0.109343im       -0.970141-0.242544im  
-  0.999264-0.0383638im     0.944388-0.328835im       -0.999811-0.0194783im 
- -0.543259+0.839566im     -0.274065+0.961711im    …   0.590894-0.806749im  
- -0.793748+0.608247im     -0.581239+0.813733im        0.827589-0.561335im  
-  0.962797+0.270228im      0.999734-0.0230644im      -0.945561-0.325445im  
-  0.915074+0.403287im      0.992998+0.118133im       -0.890225-0.455522im  
- -0.998327+0.0578206im    -0.937803+0.347167im             1.0-1.04206e-9im</pre><p>Verify if the rank of <span>$U$</span> is 1:</p><pre><code class="language-julia">B, C = eigen(evaluate(U));
+       1.0+5.46652e-9im    0.956308-0.292362im    …  -0.998328-0.0578206im 
+  0.956308+0.292362im           1.0+3.43146e-9im     -0.937804-0.347168im  
+  0.594865+0.803826im      0.803883+0.594789im       -0.547392-0.836877im  
+  0.482367+0.87597im       0.717392+0.696671im       -0.430911-0.902395im  
+  0.990596+0.136828im      0.987318-0.158763im       -0.981027-0.193876im  
+ -0.767394+0.641177im     -0.546409+0.83752im     …   0.803183-0.595734im  
+ -0.360777+0.932653im    -0.0723418+0.997381im          0.4141-0.910232im  
+ -0.934116+0.356972im     -0.788937+0.614475im        0.953194-0.302363im  
+  0.958387-0.285476im       0.83305-0.553199im        -0.97329+0.229584im  
+  0.984728+0.174104im      0.992604-0.121401im       -0.973014-0.23075im   
+ -0.971015+0.239022im     -0.858708+0.512467im    …   0.983211-0.182478im  
+  0.764413+0.644728im      0.919508+0.393073im       -0.725856-0.687848im  
+ -0.368794+0.929512im    -0.0809259+0.996721im        0.421921-0.906633im  
+  0.982542+0.186044im      0.994005-0.109343im       -0.970141-0.242544im  
+  0.999265-0.0383639im     0.944388-0.328835im       -0.999811-0.0194783im 
+ -0.543259+0.839566im     -0.274066+0.961712im    …   0.590894-0.80675im   
+ -0.793749+0.608247im     -0.581239+0.813734im         0.82759-0.561335im  
+  0.962797+0.270228im      0.999735-0.0230644im      -0.945562-0.325445im  
+  0.915074+0.403287im      0.992999+0.118133im       -0.890225-0.455522im  
+ -0.998328+0.0578206im    -0.937804+0.347168im             1.0-1.10663e-8im</pre><p>Verify if the rank of <span>$U$</span> is 1:</p><pre><code class="language-julia">B, C = eigen(evaluate(U));
 length([e for e in B if(abs(real(e))&gt;1e-4)])</code></pre><pre class="documenter-example-output">1</pre><p>Decompose <span>$U = uu^*$</span> where <span>$u$</span> is the phase of <span>$Ax$</span></p><pre><code class="language-julia">u = C[:,1];
 for i in 1:n
     u[i] = u[i]/abs(u[i])
 end
 u</code></pre><pre class="documenter-example-output">20-element Array{Complex{Float64},1}:
-   0.5948648860624225 - 0.8038257070596468im 
-   0.8038820935447081 - 0.5947886848942043im 
-                  1.0 + 0.0im                
-   0.9910696887227978 + 0.13334493651765292im
-   0.6992556695821882 - 0.7148716727897153im 
-  0.05889912727581745 + 0.9982639394499568im 
-   0.5350760131895872 + 0.8448039181426285im 
-  -0.2687295361522386 + 0.9632156749136732im 
-   0.3406377266270483 - 0.9401946283607221im 
-   0.7257285896083895 - 0.687981114729916im  
- -0.38549022483145934 + 0.9227119195932125im 
-   0.9729706647310437 - 0.2309287456615807im 
-   0.5277830280478492 + 0.8493792293814602im 
-   0.7340263745336105 - 0.6791209623395849im 
-    0.563589145379733 - 0.8260552494900943im 
-  0.35169861554292076 + 0.9361132857860703im 
- 0.016751728072860756 + 0.9998596799584295im 
-   0.7899498077745476 - 0.6131715104250649im 
-   0.8685173473463038 - 0.49565877109009165im
-  -0.5473920338045287 + 0.836876311845031im  </pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Fidelity in Quantum Information Theory/">« Fidelity in quantum information theory</a><a class="docs-footer-nextpage" href="../povm_simulation/">POVM simulation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 17 January 2021 16:53">Sunday 17 January 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+   0.9563076689513763 - 0.2923621765974264im  
+                  1.0 + 0.0im                 
+   0.8038820913899796 + 0.5947886878064111im  
+   0.7173911156477751 + 0.6966706447021006im  
+   0.9873166954152198 - 0.15876316623943415im 
+   -0.546408144611337 + 0.8375190382925013im  
+ -0.07234175335730267 + 0.997379902906205im   
+  -0.7889366523570753 + 0.6144745385836677im  
+    0.833049692760444 - 0.5531981646677164im  
+    0.992603601394243 - 0.12140053747483519im 
+  -0.8587073038644084 + 0.5124663562517237im  
+   0.9195074932820849 + 0.39307247397661527im 
+ -0.08092580588241265 + 0.9967201281916014im  
+   0.9940041263645314 - 0.10934256614093428im 
+    0.944387537387439 - 0.3288345772988124im  
+   -0.274065318860866 + 0.9617110797935583im  
+  -0.5812388036098962 + 0.8137330355701042im  
+   0.9997339815195978 - 0.023064392360791712im
+   0.9929977710909638 + 0.11813308854160184im 
+  -0.9378032303573409 + 0.34716725238901264im </pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Fidelity in Quantum Information Theory/">« Fidelity in quantum information theory</a><a class="docs-footer-nextpage" href="../povm_simulation/">POVM simulation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 17 January 2021 18:02">Sunday 17 January 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

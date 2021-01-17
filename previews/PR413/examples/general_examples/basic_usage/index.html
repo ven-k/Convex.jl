@@ -51,19 +51,19 @@ solve!(p, solver)
 println(p.status)
 evaluate(x)</code></pre><pre class="documenter-example-output">4-element Array{Float64,1}:
   0.0              
-  9.792376428098947
- 14.180784526931312
- 14.180784526931312</pre><h3 id="SDP-cone-and-Eigenvalues"><a class="docs-heading-anchor" href="#SDP-cone-and-Eigenvalues">SDP cone and Eigenvalues</a><a id="SDP-cone-and-Eigenvalues-1"></a><a class="docs-heading-anchor-permalink" href="#SDP-cone-and-Eigenvalues" title="Permalink"></a></h3><pre><code class="language-julia">y = Semidefinite(2)
+  9.792376428098521
+ 14.180784526931346
+ 14.180784526931346</pre><h3 id="SDP-cone-and-Eigenvalues"><a class="docs-heading-anchor" href="#SDP-cone-and-Eigenvalues">SDP cone and Eigenvalues</a><a id="SDP-cone-and-Eigenvalues-1"></a><a class="docs-heading-anchor-permalink" href="#SDP-cone-and-Eigenvalues" title="Permalink"></a></h3><pre><code class="language-julia">y = Semidefinite(2)
 p = maximize(eigmin(y), tr(y)&lt;=6)
 solve!(p, solver)
-p.optval</code></pre><pre class="documenter-example-output">2.999999994406409</pre><pre><code class="language-julia">x = Variable()
+p.optval</code></pre><pre class="documenter-example-output">2.9999999002779343</pre><pre><code class="language-julia">x = Variable()
 y = Variable((2, 2))
 # SDP constraints
 p = minimize(x + y[1, 1], isposdef(y), x &gt;= 1, y[2, 1] == 1)
 solve!(p, solver)
 evaluate(y)</code></pre><pre class="documenter-example-output">2×2 Array{Float64,2}:
- -3.44809e-6  0.999994 
-  0.999994    2.77199e5</pre><h3 id="Mixed-integer-program"><a class="docs-heading-anchor" href="#Mixed-integer-program">Mixed integer program</a><a id="Mixed-integer-program-1"></a><a class="docs-heading-anchor-permalink" href="#Mixed-integer-program" title="Permalink"></a></h3><p class="math-container">\[\begin{array}{ll}
+ -1.92909e-6  0.999998 
+  0.999999    2.66326e5</pre><h3 id="Mixed-integer-program"><a class="docs-heading-anchor" href="#Mixed-integer-program">Mixed integer program</a><a id="Mixed-integer-program-1"></a><a class="docs-heading-anchor-permalink" href="#Mixed-integer-program" title="Permalink"></a></h3><p class="math-container">\[\begin{array}{ll}
   \text{minimize} &amp; \sum_{i=1}^n x_i \\
     \text{subject to} &amp; x \in \mathbb{Z}^n \\
   &amp; x \geq 0.5 \\
@@ -75,4 +75,4 @@ evaluate(x)</code></pre><pre class="documenter-example-output">4-element Array{F
  1.0
  1.0
  1.0
- 1.0</pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../DCP_analysis/">« DCP analysis</a><a class="docs-footer-nextpage" href="../chebyshev_center/">Chebyshev center »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 17 January 2021 16:53">Sunday 17 January 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+ 1.0</pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../DCP_analysis/">« DCP analysis</a><a class="docs-footer-nextpage" href="../chebyshev_center/">Chebyshev center »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 17 January 2021 18:02">Sunday 17 January 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
