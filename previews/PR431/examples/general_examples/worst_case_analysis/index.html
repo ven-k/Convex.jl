@@ -18,11 +18,11 @@ risk = sum(quadform(w, Sigma_nom));
 problem = minimize(risk, [sum(w) == 1, ret &gt;= 0.1, norm(w, 1) &lt;= 2])
 solve!(problem, () -&gt; SCS.Optimizer(verbose=0));
 wval = vec(evaluate(w))</code></pre><pre class="documenter-example-output">5-element Array{Float64,1}:
- -0.2584111225097882 
-  0.5388445424592738 
- -0.24158885787869822
-  0.751630898449201  
-  0.20952450574832615</pre><p>Form and solve worst-case risk analysis problem.</p><pre><code class="language-julia">Sigma = Semidefinite(n);
+ -0.2584111225097809 
+  0.5388445424592709 
+ -0.24158885787869272
+  0.7516308984492054 
+  0.2095245057483255 </pre><p>Form and solve worst-case risk analysis problem.</p><pre><code class="language-julia">Sigma = Semidefinite(n);
 Delta = Variable(n, n);
 risk = sum(quadform(wval, Sigma));
 problem = maximize(risk, [Sigma == Sigma_nom + Delta,
@@ -36,4 +36,4 @@ println(&quot;worst-case Delta = &quot;);
 println(round.(evaluate(Delta), sigdigits=2));</code></pre><pre class="documenter-example-output">standard deviation = 0.27
 worst-case standard deviation = 0.82
 worst-case Delta =
-[7.0e-7 -0.2 0.19 -0.2 -0.2; -0.2 1.9e-7 -0.2 0.2 0.2; 0.19 -0.2 6.6e-7 -0.2 -0.2; -0.2 0.2 -0.2 -4.3e-7 0.2; -0.2 0.2 -0.2 0.2 6.4e-7]</pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../trade_off_curves/">« Trade-off curves</a><a class="docs-footer-nextpage" href="../../mixed_integer/binary_knapsack/">Binary (or 0-1) knapsack problem »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Saturday 27 March 2021 21:13">Saturday 27 March 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+[7.0e-7 -0.2 0.19 -0.2 -0.2; -0.2 1.9e-7 -0.2 0.2 0.2; 0.19 -0.2 6.6e-7 -0.2 -0.2; -0.2 0.2 -0.2 -4.3e-7 0.2; -0.2 0.2 -0.2 0.2 6.4e-7]</pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../trade_off_curves/">« Trade-off curves</a><a class="docs-footer-nextpage" href="../../mixed_integer/binary_knapsack/">Binary (or 0-1) knapsack problem »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Saturday 27 March 2021 22:54">Saturday 27 March 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
