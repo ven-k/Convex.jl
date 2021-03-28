@@ -19,28 +19,28 @@ objective = 0.5*real(tr(Z+Z&#39;))
 constraint = [P Z;Z&#39; Q] ⪰ 0
 problem = maximize(objective,constraint)
 solve!(problem, () -&gt; SCS.Optimizer(verbose=0))
-computed_fidelity = evaluate(objective)</code></pre><pre class="documenter-example-output">580.307451109476</pre><pre><code class="language-julia"># Verify that computer fidelity is equal to actual fidelity
+computed_fidelity = evaluate(objective)</code></pre><pre class="documenter-example-output">580.3070861227797</pre><pre><code class="language-julia"># Verify that computer fidelity is equal to actual fidelity
 P1,P2 = eigen(P)
 sqP = P2 * diagm([p1^0.5 for p1 in P1]) * P2&#39;
 Q1,Q2 = eigen(Q)
 sqQ = Q2 * diagm([q1^0.5 for q1 in Q1]) * Q2&#39;</code></pre><pre class="documenter-example-output">20×20 Array{Complex{Float64},2}:
-     5.61705-5.55112e-17im     0.49492-0.185839im  …    0.700195+0.60619im 
-     0.49492+0.185839im        4.53074+0.0im            0.313627+0.196467im
-    0.481404+0.115272im     -0.0122532+0.200877im      -0.364561+0.843019im
-  -0.0974573+0.189815im      -0.321833+0.211814im      -0.279087+0.715268im
- -0.00589191+0.720583im       0.246177+0.82366im       -0.115346-1.01428im 
-    0.149646-0.730849im      -0.289224-0.202485im  …   -0.271959-0.318572im
-    0.903574-0.464682im       -1.07745-0.624387im       0.602452-0.345557im
-   0.0731664-0.0349363im    -0.0195619-0.804859im      -0.146864+0.630165im
-   -0.263928-0.090138im       -0.17595-0.173714im      -0.239118-0.364574im
-     0.20019+0.350791im      -0.204589-0.526566im      -0.882568+0.846959im
-    0.230249-0.608196im      -0.139009+0.065917im  …   -0.247886+0.832007im
-   -0.645344-0.0114094im      -0.16604+1.04727im        0.379073+0.429442im
-    0.495238+0.317661im       0.544406+0.707043im     -0.0670969+0.160112im
-   -0.562143-0.0413663im      0.412747-0.423487im      -0.700676+0.265533im
-    0.546403+0.944105im       0.808658-0.327613im      -0.622406-0.438829im
-   -0.360621-0.92215im      -0.0207143+0.246658im  …    0.299766+0.865221im
-  -0.0432292-0.207528im      -0.318068+0.939924im       0.589368+0.384068im
-   -0.288301+0.20771im        0.624545-0.075891im      -0.313043+0.461881im
-    0.736124-0.5545im        -0.204476-0.322345im       0.517316+0.284041im
-    0.700195-0.60619im        0.313627-0.196467im        5.58108+0.0im     </pre><pre><code class="language-julia">actual_fidelity = sum(svdvals(sqP * sqQ))</code></pre><pre class="documenter-example-output">580.3076315691305</pre><p>We can see that the actual fidelity value is very close the computed fidelity value.</p><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../mixed_integer/section_allocation/">« Section Allocation</a><a class="docs-footer-nextpage" href="../phase_recovery_using_MaxCut/">Phase recovery using MaxCut »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 14 March 2021 21:20">Sunday 14 March 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+     5.61705+1.11022e-16im  …    0.700195+0.60619im 
+     0.49492+0.185839im          0.313627+0.196467im
+    0.481404+0.115272im         -0.364561+0.843019im
+  -0.0974573+0.189815im         -0.279087+0.715268im
+ -0.00589191+0.720583im         -0.115346-1.01428im 
+    0.149646-0.730849im     …   -0.271959-0.318572im
+    0.903574-0.464682im          0.602452-0.345557im
+   0.0731664-0.0349363im        -0.146864+0.630165im
+   -0.263928-0.090138im         -0.239118-0.364574im
+     0.20019+0.350791im         -0.882568+0.846959im
+    0.230249-0.608196im     …   -0.247886+0.832007im
+   -0.645344-0.0114094im         0.379073+0.429442im
+    0.495238+0.317661im        -0.0670969+0.160112im
+   -0.562143-0.0413663im        -0.700676+0.265533im
+    0.546403+0.944105im         -0.622406-0.438829im
+   -0.360621-0.92215im      …    0.299766+0.865221im
+  -0.0432292-0.207528im          0.589368+0.384068im
+   -0.288301+0.20771im          -0.313043+0.461881im
+    0.736124-0.5545im            0.517316+0.284041im
+    0.700195-0.60619im            5.58108+0.0im     </pre><pre><code class="language-julia">actual_fidelity = sum(svdvals(sqP * sqQ))</code></pre><pre class="documenter-example-output">580.3076315691303</pre><p>We can see that the actual fidelity value is very close the computed fidelity value.</p><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../mixed_integer/section_allocation/">« Section Allocation</a><a class="docs-footer-nextpage" href="../phase_recovery_using_MaxCut/">Phase recovery using MaxCut »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 28 March 2021 00:02">Sunday 28 March 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
