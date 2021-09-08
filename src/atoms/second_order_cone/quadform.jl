@@ -19,6 +19,22 @@ function quadform(x::AbstractExpr, A::Value)
         error("Quadratic forms supported only for semidefinite matrices")
     end
 
+    return _quadform(factor, x, A)
+end
+
+function quadform(x::AbstractExpr, P::PositiveSemiDefinite)
+    A = P.A
+    if length(size(A)) != 2 || size(A, 1) != size(A, 2)
+        error("Quadratic form only takes square matrices")
+    end
+    if !ishermitian(A)
+        error("Quadratic form only defined for Hermitian matrices")
+    end
+
+    return _quadform(1, x, A)
+end
+
+function _quadform(factor, x, A)
     P = sqrt(Hermitian(factor * A))
     return factor * square(norm2(P * x))
 end

@@ -40,6 +40,8 @@ export Positive, Negative, ComplexSign, NoSign
 # Problems
 export add_constraints!, maximize, minimize, Problem, satisfy, solve!
 
+# Types
+export PositiveSemiDefinite
 
 # Module level globals
 
@@ -90,6 +92,9 @@ Set via:
     Convex.MAXDIGITS[] = 3
 """
 const MAXDIGITS= Ref(3)
+
+# Defined early so the types can be used later
+include("utilities/wrappers.jl")
 
 ### modeling framework
 include("dcp.jl")

@@ -92,7 +92,7 @@ function length(x::AbstractExpr)
 end
 
 ### User-defined Unions
-const Value = Union{Number, AbstractArray}
+const Value = Union{Number, AbstractArray, PositiveSemiDefinite}
 const ValueOrNothing = Union{Value, Nothing}
 const AbstractExprOrValue = Union{AbstractExpr, Value}
 
