@@ -10,10 +10,10 @@ e = 0;
   p = minimize(e, x&gt;=1);
 end
 @time solve!(p, () -&gt; ECOS.Optimizer(verbose=0))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Summation example
-  0.015241 seconds (4.64 k allocations: 11.763 MiB)
+  0.042554 seconds (4.64 k allocations: 11.763 MiB, 50.00% gc time)
 ┌ Warning: Passing keyword attributes is deprecated. Use `set_optimizer_attribute` instead.
 └ @ ECOS ~/.julia/packages/ECOS/EtNk7/src/MOI_wrapper.jl:82
-  0.509509 seconds (898.07 k allocations: 44.803 MiB, 8.83% gc time)</code></pre><p>Indexing.</p><pre><code class="language-julia hljs">println(&quot;Indexing example&quot;)
+  0.712629 seconds (898.07 k allocations: 44.803 MiB, 6.66% gc time)</code></pre><p>Indexing.</p><pre><code class="language-julia hljs">println(&quot;Indexing example&quot;)
 x = Variable(1000, 1);
 e = 0;
 @time begin
@@ -24,10 +24,10 @@ e = 0;
   p = minimize(e, x &gt;= ones(1000, 1));
 end
 @time solve!(p, () -&gt; ECOS.Optimizer(verbose=0))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Indexing example
-  0.162316 seconds (125.59 k allocations: 17.645 MiB, 14.11% gc time)
+  0.218808 seconds (125.59 k allocations: 17.645 MiB)
 ┌ Warning: Passing keyword attributes is deprecated. Use `set_optimizer_attribute` instead.
 └ @ ECOS ~/.julia/packages/ECOS/EtNk7/src/MOI_wrapper.jl:82
-  0.317445 seconds (629.56 k allocations: 103.562 MiB, 23.96% gc time)</code></pre><p>Matrix constraints.</p><pre><code class="language-julia hljs">println(&quot;Matrix constraint example&quot;)
+  0.435699 seconds (629.56 k allocations: 103.578 MiB, 20.54% gc time)</code></pre><p>Matrix constraints.</p><pre><code class="language-julia hljs">println(&quot;Matrix constraint example&quot;)
 n, m, p = 100, 100, 100
 X = Variable(m, n);
 A = randn(p, m);
@@ -36,10 +36,10 @@ b = randn(p, n);
   p = minimize(norm(vec(X)), A * X == b);
 end
 @time solve!(p, () -&gt; ECOS.Optimizer(verbose=0))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Matrix constraint example
-  0.089769 seconds (148.69 k allocations: 7.173 MiB)
+  0.153938 seconds (148.69 k allocations: 7.173 MiB, 13.32% gc time)
 ┌ Warning: Passing keyword attributes is deprecated. Use `set_optimizer_attribute` instead.
 └ @ ECOS ~/.julia/packages/ECOS/EtNk7/src/MOI_wrapper.jl:82
-  2.219767 seconds (514.16 k allocations: 193.711 MiB, 29.32% gc time)</code></pre><p>Transpose.</p><pre><code class="language-julia hljs">println(&quot;Transpose example&quot;)
+  2.759703 seconds (514.16 k allocations: 193.712 MiB, 26.37% gc time)</code></pre><p>Transpose.</p><pre><code class="language-julia hljs">println(&quot;Transpose example&quot;)
 X = Variable(5, 5);
 A = randn(5, 5);
 @time begin
@@ -54,9 +54,9 @@ A = randn(n, n);
   p = minimize(norm(vec(X&#39; - A)), X[1,1] == 1);
   solve!(p, () -&gt; ECOS.Optimizer(verbose=0))
 #end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Transpose example
-  0.040992 seconds (76.23 k allocations: 3.746 MiB)
+  0.055282 seconds (76.24 k allocations: 3.755 MiB)
 ┌ Warning: Passing keyword attributes is deprecated. Use `set_optimizer_attribute` instead.
 └ @ ECOS ~/.julia/packages/ECOS/EtNk7/src/MOI_wrapper.jl:82
-  0.025830 seconds (41.22 k allocations: 2.144 MiB)
+  0.036227 seconds (41.22 k allocations: 2.144 MiB)
 ┌ Warning: Passing keyword attributes is deprecated. Use `set_optimizer_attribute` instead.
-└ @ ECOS ~/.julia/packages/ECOS/EtNk7/src/MOI_wrapper.jl:82</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Convex.jl_intro_ISMP2015/">« Convex Optimization in Julia</a><a class="docs-footer-nextpage" href="../../time_series/time_series/">Time Series Analysis »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.10 on <span class="colophon-date" title="Sunday 14 November 2021 14:15">Sunday 14 November 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+└ @ ECOS ~/.julia/packages/ECOS/EtNk7/src/MOI_wrapper.jl:82</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Convex.jl_intro_ISMP2015/">« Convex Optimization in Julia</a><a class="docs-footer-nextpage" href="../../time_series/time_series/">Time Series Analysis »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.10 on <span class="colophon-date" title="Sunday 14 November 2021 14:50">Sunday 14 November 2021</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
