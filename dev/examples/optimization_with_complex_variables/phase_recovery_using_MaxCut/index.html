@@ -9,25 +9,25 @@
 \end{array}\]</p><p>Here the variable <span>$U$</span> must be hermitian (<span>$U \in \mathbb{H}_n $), and we have a solution to the phase recovery problem if $U = u u^*$</span> has rank one. Otherwise, the leading singular vector of <span>$U$</span> can be used to approximate the solution.</p><pre><code class="language- hljs">using Convex, SCS, LinearAlgebra
 if VERSION &lt; v&quot;1.2.0-DEV.0&quot;
     (I::UniformScaling)(n::Integer) = Diagonal(fill(I.λ, n))
-     LinearAlgebra.diagm(v::AbstractVector) = diagm(0 =&gt; v)
+    LinearAlgebra.diagm(v::AbstractVector) = diagm(0 =&gt; v)
 end
 
 n = 20
 p = 2
-A = rand(n,p) + im*randn(n,p)
-x = rand(p) + im*randn(p)
-b = abs.(A*x) + rand(n)
+A = rand(n, p) + im * randn(n, p)
+x = rand(p) + im * randn(p)
+b = abs.(A * x) + rand(n)
 
-M = diagm(b)*(I(n)-A*A&#39;)*diagm(b)
-U = ComplexVariable(n,n)
-objective = inner_product(U,M)
+M = diagm(b) * (I(n) - A * A&#39;) * diagm(b)
+U = ComplexVariable(n, n)
+objective = inner_product(U, M)
 c1 = diag(U) == 1
 c2 = U in :SDP
-p = minimize(objective,c1,c2)
+p = minimize(objective, c1, c2)
 solve!(p, MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =&gt; 0))
 evaluate(U)</code></pre><p>Verify if the rank of <span>$U$</span> is 1:</p><pre><code class="language- hljs">B, C = eigen(evaluate(U));
-length([e for e in B if(abs(real(e))&gt;1e-4)])</code></pre><p>Decompose <span>$U = uu^*$</span> where <span>$u$</span> is the phase of <span>$Ax$</span></p><pre><code class="language- hljs">u = C[:,1];
+length([e for e in B if (abs(real(e)) &gt; 1e-4)])</code></pre><p>Decompose <span>$U = uu^*$</span> where <span>$u$</span> is the phase of <span>$Ax$</span></p><pre><code class="language- hljs">u = C[:, 1];
 for i in 1:n
-    u[i] = u[i]/abs(u[i])
+    u[i] = u[i] / abs(u[i])
 end
-u</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Fidelity in Quantum Information Theory/">« Fidelity in quantum information theory</a><a class="docs-footer-nextpage" href="../povm_simulation/">POVM simulation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Wednesday 23 February 2022 04:02">Wednesday 23 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+u</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Fidelity in Quantum Information Theory/">« Fidelity in quantum information theory</a><a class="docs-footer-nextpage" href="../povm_simulation/">POVM simulation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Wednesday 23 February 2022 07:48">Wednesday 23 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

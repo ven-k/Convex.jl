@@ -4,11 +4,12 @@ using Convex, SparseArrays, LinearAlgebra
 using SCS # first order splitting conic solver [O&#39;Donoghue et al., 2014]
 
 # Generate random problem data
-m = 50;  n = 100
+m = 50;
+n = 100;
 A = randn(m, n)
-x♮ = sprand(n, 1, .5) # true (sparse nonnegative) parameter vector
-noise = .1*randn(m)    # gaussian noise
-b = A*x♮ + noise      # noisy linear observations
+x♮ = sprand(n, 1, 0.5) # true (sparse nonnegative) parameter vector
+noise = 0.1 * randn(m)    # gaussian noise
+b = A * x♮ + noise      # noisy linear observations
 
 # Create a (column vector) variable of size n.
 x = Variable(n)
@@ -16,8 +17,10 @@ x = Variable(n)
 # nonnegative elastic net with regularization
 λ = 1
 μ = 1
-problem = minimize(square(norm(A * x - b)) + λ*square(norm(x)) + μ*norm(x, 1),
-                   x &gt;= 0)
+problem = minimize(
+    square(norm(A * x - b)) + λ * square(norm(x)) + μ * norm(x, 1),
+    x &gt;= 0,
+)
 
 # Solve the problem by calling solve!
 solve!(problem, MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =&gt; 0))
@@ -25,55 +28,57 @@ solve!(problem, MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =
 println(&quot;problem status is &quot;, problem.status) # :Optimal, :Infeasible, :Unbounded etc.
 println(&quot;optimal value is &quot;, problem.optval)</code></pre><pre><code class="language- hljs">using Interact, Plots
 # Interact.WebIO.install_jupyter_nbextension() # might be helpful if you see `WebIO` warnings in Jupyter
-@manipulate throttle=.1 for λ=0:.1:5, μ=0:.1:5
+@manipulate throttle = 0.1 for λ in 0:0.1:5, μ in 0:0.1:5
     global A
-    problem = minimize(square(norm(A * x - b)) + λ*square(norm(x)) + μ*norm(x, 1),
-                   x &gt;= 0)
+    problem = minimize(
+        square(norm(A * x - b)) + λ * square(norm(x)) + μ * norm(x, 1),
+        x &gt;= 0,
+    )
     solve!(problem, MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =&gt; 0))
-    histogram(evaluate(x), xlims=(0,3.5), label=&quot;x&quot;)
+    histogram(evaluate(x), xlims = (0, 3.5), label = &quot;x&quot;)
 end</code></pre><h1 id="Quick-convex-prototyping"><a class="docs-heading-anchor" href="#Quick-convex-prototyping">Quick convex prototyping</a><a id="Quick-convex-prototyping-1"></a><a class="docs-heading-anchor-permalink" href="#Quick-convex-prototyping" title="Permalink"></a></h1><h2 id="Variables"><a class="docs-heading-anchor" href="#Variables">Variables</a><a id="Variables-1"></a><a class="docs-heading-anchor-permalink" href="#Variables" title="Permalink"></a></h2><pre><code class="language-julia hljs"># Scalar variable
 x = Variable()</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Variable
 size: (1, 1)
 sign: real
 vexity: affine
-id: 101…230</code></pre><pre><code class="language-julia hljs"># (Column) vector variable
+id: 181…940</code></pre><pre><code class="language-julia hljs"># (Column) vector variable
 y = Variable(4)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Variable
 size: (4, 1)
 sign: real
 vexity: affine
-id: 220…585</code></pre><pre><code class="language-julia hljs"># Matrix variable
+id: 135…187</code></pre><pre><code class="language-julia hljs"># Matrix variable
 Z = Variable(4, 4)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Variable
 size: (4, 4)
 sign: real
 vexity: affine
-id: 725…648</code></pre><h1 id="Expressions"><a class="docs-heading-anchor" href="#Expressions">Expressions</a><a id="Expressions-1"></a><a class="docs-heading-anchor-permalink" href="#Expressions" title="Permalink"></a></h1><p>Convex.jl allows you to use a <a href="http://convexjl.readthedocs.org/en/latest/operations.html">wide variety of functions</a> on variables and on expressions to form new expressions.</p><pre><code class="language-julia hljs">x + 2x</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">+ (affine; real)
-├─ real variable (id: 101…230)
+id: 506…240</code></pre><h1 id="Expressions"><a class="docs-heading-anchor" href="#Expressions">Expressions</a><a id="Expressions-1"></a><a class="docs-heading-anchor-permalink" href="#Expressions" title="Permalink"></a></h1><p>Convex.jl allows you to use a <a href="http://convexjl.readthedocs.org/en/latest/operations.html">wide variety of functions</a> on variables and on expressions to form new expressions.</p><pre><code class="language-julia hljs">x + 2x</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">+ (affine; real)
+├─ real variable (id: 181…940)
 └─ * (affine; real)
    ├─ 2
-   └─ real variable (id: 101…230)</code></pre><pre><code class="language-julia hljs">e = y[1] + logdet(Z) + sqrt(x) + minimum(y)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">+ (concave; real)
+   └─ real variable (id: 181…940)</code></pre><pre><code class="language-julia hljs">e = y[1] + logdet(Z) + sqrt(x) + minimum(y)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">+ (concave; real)
 ├─ index (affine; real)
-│  └─ 4-element real variable (id: 220…585)
+│  └─ 4-element real variable (id: 135…187)
 ├─ logdet (concave; real)
-│  └─ 4×4 real variable (id: 725…648)
+│  └─ 4×4 real variable (id: 506…240)
 ├─ geomean (concave; positive)
-│  ├─ real variable (id: 101…230)
+│  ├─ real variable (id: 181…940)
 │  └─ [1.0]
 └─ minimum (concave; real)
-   └─ 4-element real variable (id: 220…585)</code></pre><h3 id="Examine-the-expression-tree"><a class="docs-heading-anchor" href="#Examine-the-expression-tree">Examine the expression tree</a><a id="Examine-the-expression-tree-1"></a><a class="docs-heading-anchor-permalink" href="#Examine-the-expression-tree" title="Permalink"></a></h3><pre><code class="language-julia hljs">e.children[2]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">logdet (concave; real)
-└─ 4×4 real variable (id: 725…648)</code></pre><h1 id="Constraints"><a class="docs-heading-anchor" href="#Constraints">Constraints</a><a id="Constraints-1"></a><a class="docs-heading-anchor-permalink" href="#Constraints" title="Permalink"></a></h1><p>A constraint is convex if convex combinations of feasible points are also feasible. Equivalently, feasible sets are convex sets.</p><p>In other words, convex constraints are of the form</p><ul><li><code>convexExpr &lt;= 0</code></li><li><code>concaveExpr &gt;= 0</code></li><li><code>affineExpr == 0</code></li></ul><pre><code class="language-julia hljs">x &lt;= 0</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;= constraint (affine)
-├─ real variable (id: 101…230)
+   └─ 4-element real variable (id: 135…187)</code></pre><h3 id="Examine-the-expression-tree"><a class="docs-heading-anchor" href="#Examine-the-expression-tree">Examine the expression tree</a><a id="Examine-the-expression-tree-1"></a><a class="docs-heading-anchor-permalink" href="#Examine-the-expression-tree" title="Permalink"></a></h3><pre><code class="language-julia hljs">e.children[2]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">logdet (concave; real)
+└─ 4×4 real variable (id: 506…240)</code></pre><h1 id="Constraints"><a class="docs-heading-anchor" href="#Constraints">Constraints</a><a id="Constraints-1"></a><a class="docs-heading-anchor-permalink" href="#Constraints" title="Permalink"></a></h1><p>A constraint is convex if convex combinations of feasible points are also feasible. Equivalently, feasible sets are convex sets.</p><p>In other words, convex constraints are of the form</p><ul><li><code>convexExpr &lt;= 0</code></li><li><code>concaveExpr &gt;= 0</code></li><li><code>affineExpr == 0</code></li></ul><pre><code class="language-julia hljs">x &lt;= 0</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;= constraint (affine)
+├─ real variable (id: 181…940)
 └─ 0</code></pre><pre><code class="language-julia hljs">square(x) &lt;= sum(y)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;= constraint (convex)
 ├─ qol_elem (convex; positive)
-│  ├─ real variable (id: 101…230)
+│  ├─ real variable (id: 181…940)
 │  └─ [1.0]
 └─ sum (affine; real)
-   └─ 4-element real variable (id: 220…585)</code></pre><pre><code class="language-julia hljs">M = Z
-for i = 1:length(y)
-    global M += rand(size(Z)...)*y[i]
+   └─ 4-element real variable (id: 135…187)</code></pre><pre><code class="language-julia hljs">M = Z
+for i in 1:length(y)
+    global M += rand(size(Z)...) * y[i]
 end
 M ⪰ 0</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">sdp constraint (affine)
 └─ + (affine; real)
-   ├─ 4×4 real variable (id: 725…648)
+   ├─ 4×4 real variable (id: 506…240)
    ├─ * (affine; real)
    │  ├─ 4×4 Matrix{Float64}
    │  └─ index (affine; real)
@@ -91,13 +96,13 @@ M ⪰ 0</code></pre><pre class="documenter-example-output"><code class="nohighli
       └─ index (affine; real)
          └─ …</code></pre><h1 id="Problems"><a class="docs-heading-anchor" href="#Problems">Problems</a><a id="Problems-1"></a><a class="docs-heading-anchor-permalink" href="#Problems" title="Permalink"></a></h1><pre><code class="language-julia hljs">x = Variable()
 y = Variable(4)
-objective = 2*x + 1 - sqrt(sum(y))
+objective = 2 * x + 1 - sqrt(sum(y))
 constraint = x &gt;= maximum(y)
 p = minimize(objective, constraint)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">minimize
 └─ + (convex; real)
    ├─ * (affine; real)
    │  ├─ 2
-   │  └─ real variable (id: 109…258)
+   │  └─ real variable (id: 182…975)
    ├─ 1
    └─ - (convex; negative)
       └─ geomean (concave; positive)
@@ -105,20 +110,21 @@ p = minimize(objective, constraint)</code></pre><pre class="documenter-example-o
          └─ …
 subject to
 └─ &gt;= constraint (convex)
-   ├─ real variable (id: 109…258)
+   ├─ real variable (id: 182…975)
    └─ maximum (convex; real)
-      └─ 4-element real variable (id: 120…815)
+      └─ 4-element real variable (id: 702…326)
 
 status: `solve!` not called yet</code></pre><pre><code class="language- hljs"># solve the problem
 solve!(p, MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =&gt; 0))
 p.status</code></pre><pre><code class="language- hljs">evaluate(x)</code></pre><pre><code class="language- hljs"># can evaluate expressions directly
 evaluate(objective)</code></pre><h2 id="Pass-to-solver"><a class="docs-heading-anchor" href="#Pass-to-solver">Pass to solver</a><a id="Pass-to-solver-1"></a><a class="docs-heading-anchor-permalink" href="#Pass-to-solver" title="Permalink"></a></h2><p>call a <code>MathProgBase</code> solver suited for your problem class</p><ul><li>see the <a href="http://convexjl.readthedocs.org/en/latest/operations.html">list of Convex.jl operations</a> to find which cones you&#39;re using</li><li>see the <a href="http://www.juliaopt.org/">list of solvers</a> for an up-to-date list of solvers and which cones they support</li></ul><p>to solve problem using a different solver, just import the solver package and pass the solver to the <code>solve!</code> method: eg</p><pre><code class="nohighlight hljs">using Mosek
 solve!(p, Mosek.Optimizer)</code></pre><h2 id="Warmstart"><a class="docs-heading-anchor" href="#Warmstart">Warmstart</a><a id="Warmstart-1"></a><a class="docs-heading-anchor-permalink" href="#Warmstart" title="Permalink"></a></h2><pre><code class="language- hljs"># Generate random problem data
-m = 50;  n = 100
+m = 50;
+n = 100;
 A = randn(m, n)
-x♮ = sprand(n, 1, .5) # true (sparse nonnegative) parameter vector
-noise = .1*randn(m)    # gaussian noise
-b = A*x♮ + noise      # noisy linear observations
+x♮ = sprand(n, 1, 0.5) # true (sparse nonnegative) parameter vector
+noise = 0.1 * randn(m)    # gaussian noise
+b = A * x♮ + noise      # noisy linear observations
 
 # Create a (column vector) variable of size n.
 x = Variable(n)
@@ -126,26 +132,35 @@ x = Variable(n)
 # nonnegative elastic net with regularization
 λ = 1
 μ = 1
-problem = minimize(square(norm(A * x - b)) + λ*square(norm(x)) + μ*norm(x, 1),
-                   x &gt;= 0)
-@time solve!(problem, MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =&gt; 0))
+problem = minimize(
+    square(norm(A * x - b)) + λ * square(norm(x)) + μ * norm(x, 1),
+    x &gt;= 0,
+)
+@time solve!(
+    problem,
+    MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =&gt; 0),
+)
 λ = 1.5
-@time solve!(problem, MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =&gt; 0), warmstart = true)</code></pre><h1 id="DCP-examples"><a class="docs-heading-anchor" href="#DCP-examples">DCP examples</a><a id="DCP-examples-1"></a><a class="docs-heading-anchor-permalink" href="#DCP-examples" title="Permalink"></a></h1><pre><code class="language-julia hljs"># affine
+@time solve!(
+    problem,
+    MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =&gt; 0),
+    warmstart = true,
+)</code></pre><h1 id="DCP-examples"><a class="docs-heading-anchor" href="#DCP-examples">DCP examples</a><a id="DCP-examples-1"></a><a class="docs-heading-anchor-permalink" href="#DCP-examples" title="Permalink"></a></h1><pre><code class="language-julia hljs"># affine
 x = Variable(4)
 y = Variable(2)
 sum(x) + y[2]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">+ (affine; real)
 ├─ sum (affine; real)
-│  └─ 4-element real variable (id: 869…264)
+│  └─ 4-element real variable (id: 161…595)
 └─ index (affine; real)
-   └─ 2-element real variable (id: 677…219)</code></pre><pre><code class="language-julia hljs">2*maximum(x) + 4*sum(y) - sqrt(y[1] + x[1]) - 7 * minimum(x[2:4])</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">+ (convex; real)
+   └─ 2-element real variable (id: 444…387)</code></pre><pre><code class="language-julia hljs">2 * maximum(x) + 4 * sum(y) - sqrt(y[1] + x[1]) - 7 * minimum(x[2:4])</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">+ (convex; real)
 ├─ * (convex; real)
 │  ├─ 2
 │  └─ maximum (convex; real)
-│     └─ 4-element real variable (id: 869…264)
+│     └─ 4-element real variable (id: 161…595)
 ├─ * (affine; real)
 │  ├─ 4
 │  └─ sum (affine; real)
-│     └─ 2-element real variable (id: 677…219)
+│     └─ 2-element real variable (id: 444…387)
 ├─ - (convex; negative)
 │  └─ geomean (concave; positive)
 │     ├─ + (affine; real)
@@ -159,22 +174,22 @@ sum(x) + y[2]</code></pre><pre class="documenter-example-output"><code class="no
          └─ …</code></pre><pre><code class="language-julia hljs"># not dcp compliant
 log(x) + square(x)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">+ (Convex.NotDcp; real)
 ├─ log (concave; real)
-│  └─ 4-element real variable (id: 869…264)
+│  └─ 4-element real variable (id: 161…595)
 └─ qol_elem (convex; positive)
-   ├─ 4-element real variable (id: 869…264)
+   ├─ 4-element real variable (id: 161…595)
    └─ 4×1 Matrix{Float64}</code></pre><pre><code class="language-julia hljs"># $f$ is convex increasing and $g$ is convex
 square(pos(x))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">qol_elem (convex; positive)
 ├─ max (convex; positive)
-│  ├─ 4-element real variable (id: 869…264)
+│  ├─ 4-element real variable (id: 161…595)
 │  └─ 0
 └─ 4×1 Matrix{Float64}</code></pre><pre><code class="language-julia hljs"># $f$ is convex decreasing and $g$ is concave
 invpos(sqrt(x))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">qol_elem (convex; positive)
 ├─ 4×1 Matrix{Float64}
 └─ geomean (concave; positive)
-   ├─ 4-element real variable (id: 869…264)
+   ├─ 4-element real variable (id: 161…595)
    └─ 4×1 Matrix{Float64}</code></pre><pre><code class="language-julia hljs"># $f$ is concave increasing and $g$ is concave
 sqrt(sqrt(x))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">geomean (concave; positive)
 ├─ geomean (concave; positive)
-│  ├─ 4-element real variable (id: 869…264)
+│  ├─ 4-element real variable (id: 161…595)
 │  └─ 4×1 Matrix{Float64}
-└─ 4×1 Matrix{Float64}</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../portfolio_optimization/portfolio_optimization2/">« Portfolio Optimization - Markowitz Efficient Frontier</a><a class="docs-footer-nextpage" href="../paper_examples/">Paper examples »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Wednesday 23 February 2022 04:02">Wednesday 23 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+└─ 4×1 Matrix{Float64}</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../portfolio_optimization/portfolio_optimization2/">« Portfolio Optimization - Markowitz Efficient Frontier</a><a class="docs-footer-nextpage" href="../paper_examples/">Paper examples »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Wednesday 23 February 2022 07:48">Wednesday 23 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

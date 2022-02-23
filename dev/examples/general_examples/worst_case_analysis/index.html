@@ -3,7 +3,7 @@
 
 Random.seed!(2);
 n = 5;
-r = abs.(randn(n, 1))/15;
+r = abs.(randn(n, 1)) / 15;
 Sigma = 0.9 * rand(n, n) .- 0.15;
 Sigma_nom = Sigma&#39; * Sigma;
 Sigma_nom .-= (maximum(Sigma_nom) - 0.9)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">5×5 Matrix{Float64}:
@@ -20,13 +20,24 @@ solve!(problem, MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =
 wval = vec(evaluate(w))</code></pre><p>Form and solve worst-case risk analysis problem.</p><pre><code class="language- hljs">Sigma = Semidefinite(n);
 Delta = Variable(n, n);
 risk = sum(quadform(wval, Sigma));
-problem = maximize(risk, [Sigma == Sigma_nom + Delta,
-                    diag(Delta) == 0,
-                    abs(Delta) &lt;= 0.2,
-                    Delta == Delta&#39;]);
+problem = maximize(
+    risk,
+    [
+        Sigma == Sigma_nom + Delta,
+        diag(Delta) == 0,
+        abs(Delta) &lt;= 0.2,
+        Delta == Delta&#39;,
+    ],
+);
 solve!(problem, MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =&gt; 0));
-println(&quot;standard deviation = &quot;, round(sqrt(wval&#39; * Sigma_nom * wval), sigdigits=2));
-println(&quot;worst-case standard deviation = &quot;, round(sqrt(evaluate(risk)), sigdigits=2));
+println(
+    &quot;standard deviation = &quot;,
+    round(sqrt(wval&#39; * Sigma_nom * wval), sigdigits = 2),
+);
+println(
+    &quot;worst-case standard deviation = &quot;,
+    round(sqrt(evaluate(risk)), sigdigits = 2),
+);
 println(&quot;worst-case Delta = &quot;);
-println(round.(evaluate(Delta), sigdigits=2));
-nothing #hide</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../trade_off_curves/">« Trade-off curves</a><a class="docs-footer-nextpage" href="../../mixed_integer/binary_knapsack/">Binary (or 0-1) knapsack problem »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Wednesday 23 February 2022 04:02">Wednesday 23 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+println(round.(evaluate(Delta), sigdigits = 2));
+nothing #hide</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../trade_off_curves/">« Trade-off curves</a><a class="docs-footer-nextpage" href="../../mixed_integer/binary_knapsack/">Binary (or 0-1) knapsack problem »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Wednesday 23 February 2022 07:48">Wednesday 23 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
