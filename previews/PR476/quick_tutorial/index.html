@@ -15,7 +15,7 @@
 size: (5, 1)
 sign: real
 vexity: affine
-id: 140…356</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # The problem is to minimize ||Ax - b||^2 subject to x &gt;= 0
+id: 157…233</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # The problem is to minimize ||Ax - b||^2 subject to x &gt;= 0
        # This can be done by: minimize(objective, constraints)
        problem = minimize(sumsquares(A * x - b), [x &gt;= 0])</code><code class="nohighlight hljs ansi" style="display:block;">minimize
 └─ qol_elem (convex; positive)
@@ -26,10 +26,10 @@ id: 140…356</code><br/><code class="language-julia-repl hljs" style="display:b
    └─ [1.0]
 subject to
 └─ &gt;= constraint (affine)
-   ├─ 5-element real variable (id: 140…356)
+   ├─ 5-element real variable (id: 157…233)
    └─ 0
 
 status: `solve!` not called yet</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Solve the problem by calling solve!
        solve!(problem, MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =&gt; 0))</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: MOI not defined</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Check the status of the problem
        problem.status # :Optimal, :Infeasible, :Unbounded etc.</code><code class="nohighlight hljs ansi" style="display:block;">OPTIMIZE_NOT_CALLED::TerminationStatusCode = 0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Get the optimum value
-       problem.optval</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../installation/">« Installation</a><a class="docs-footer-nextpage" href="../types/">Basic Types »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Wednesday 23 February 2022 00:38">Wednesday 23 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+       problem.optval</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../installation/">« Installation</a><a class="docs-footer-nextpage" href="../types/">Basic Types »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Wednesday 23 February 2022 00:55">Wednesday 23 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
