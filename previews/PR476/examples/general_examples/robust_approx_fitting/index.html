@@ -17,13 +17,13 @@ x = Variable(n)</code></pre><pre class="documenter-example-output"><code class="
 size: (10, 1)
 sign: real
 vexity: affine
-id: 146…035</code></pre><p>Case 1: Nominal optimal solution</p><pre><code class="language- hljs">p = minimize(norm(A * x - b, 2))
-solve!(p, () -&gt; SCS.Optimizer(verbose=0))
+id: 131…086</code></pre><p>Case 1: Nominal optimal solution</p><pre><code class="language- hljs">p = minimize(norm(A * x - b, 2))
+solve!(p, MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =&gt; 0))
 x_nom = evaluate(x)</code></pre><p>Case 2: Stochastic robust approximation</p><pre><code class="language- hljs">P = 1 / 3 * B&#39; * B;
 p = minimize(square(pos(norm(A * x - b))) + quadform(x, Symmetric(P)))
-solve!(p, () -&gt; SCS.Optimizer(verbose=0))
+solve!(p, MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =&gt; 0))
 x_stoch = evaluate(x)</code></pre><p>Case 3: Worst-case robust approximation</p><pre><code class="language- hljs">p = minimize(max(norm((A - B) * x - b), norm((A + B) * x - b)))
-solve!(p, () -&gt; SCS.Optimizer(verbose=0))
+solve!(p, MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =&gt; 0))
 x_wc = evaluate(x)</code></pre><p>Plot residuals:</p><pre><code class="language- hljs">parvals = range(-2, stop=2, length=100);
 
 errvals(x) = [ norm((A + parvals[k] * B) * x - b) for k = eachindex(parvals)]
@@ -36,4 +36,4 @@ using Plots
 plot(parvals, errvals_ls, label=&quot;Nominal problem&quot;)
 plot!(parvals, errvals_stoch, label=&quot;Stochastic Robust Approximation&quot;)
 plot!(parvals, errvals_wc, label=&quot;Worst-Case Robust Approximation&quot;)
-plot!(title=&quot;Residual r(u) vs a parameter u for three approximate solutions&quot;, xlabel=&quot;u&quot;, ylabel=&quot;r(u) = ||A(u)x-b||_2&quot;)</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../optimal_advertising/">« Optimal advertising</a><a class="docs-footer-nextpage" href="../svm/">Support vector machine »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Wednesday 23 February 2022 00:05">Wednesday 23 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+plot!(title=&quot;Residual r(u) vs a parameter u for three approximate solutions&quot;, xlabel=&quot;u&quot;, ylabel=&quot;r(u) = ||A(u)x-b||_2&quot;)</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../optimal_advertising/">« Optimal advertising</a><a class="docs-footer-nextpage" href="../svm/">Support vector machine »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Wednesday 23 February 2022 00:38">Wednesday 23 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
