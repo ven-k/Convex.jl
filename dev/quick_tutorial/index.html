@@ -6,16 +6,16 @@
 \end{array}
 \end{aligned}\]</p><p>with variable <span>$x\in \mathbf{R}^{n}$</span>, and problem data <span>$A \in \mathbf{R}^{m \times n}$</span>, <span>$b \in \mathbf{R}^{m}$</span>.</p><p>This problem can be solved in Convex.jl as follows: :</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Make the Convex.jl module available
        using Convex, SCS</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Generate random problem data
-       m = 4;  n = 5</code><code class="nohighlight hljs ansi" style="display:block;">5</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; A = randn(m, n); b = randn(m, 1)</code><code class="nohighlight hljs ansi" style="display:block;">4×1 Array{Float64,2}:
-  1.3252832666253092
-  0.5110825037709646
- -0.9089852810592864
-  0.6862336045903499</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Create a (column vector) variable of size n x 1.
+       m = 4;  n = 5</code><code class="nohighlight hljs ansi" style="display:block;">5</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; A = randn(m, n); b = randn(m, 1)</code><code class="nohighlight hljs ansi" style="display:block;">4×1 Matrix{Float64}:
+  1.6576855409957891
+  0.9193410247595035
+  0.1472755730308782
+ -0.46887738711558297</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Create a (column vector) variable of size n x 1.
        x = Variable(n)</code><code class="nohighlight hljs ansi" style="display:block;">Variable
 size: (5, 1)
 sign: real
 vexity: affine
-id: 172…702</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # The problem is to minimize ||Ax - b||^2 subject to x &gt;= 0
+id: 109…878</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # The problem is to minimize ||Ax - b||^2 subject to x &gt;= 0
        # This can be done by: minimize(objective, constraints)
        problem = minimize(sumsquares(A * x - b), [x &gt;= 0])</code><code class="nohighlight hljs ansi" style="display:block;">minimize
 └─ qol_elem (convex; positive)
@@ -26,10 +26,10 @@ id: 172…702</code><br/><code class="language-julia-repl hljs" style="display:b
    └─ [1.0]
 subject to
 └─ &gt;= constraint (affine)
-   ├─ 5-element real variable (id: 172…702)
+   ├─ 5-element real variable (id: 109…878)
    └─ 0
 
 status: `solve!` not called yet</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Solve the problem by calling solve!
-       solve!(problem, () -&gt; SCS.Optimizer(verbose=false))</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Check the status of the problem
-       problem.status # :Optimal, :Infeasible, :Unbounded etc.</code><code class="nohighlight hljs ansi" style="display:block;">OPTIMAL::TerminationStatusCode = 1</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Get the optimum value
-       problem.optval</code><code class="nohighlight hljs ansi" style="display:block;">-2.2131872018092153e-11</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../installation/">« Installation</a><a class="docs-footer-nextpage" href="../types/">Basic Types »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Wednesday 23 February 2022 02:35">Wednesday 23 February 2022</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+       solve!(problem, MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =&gt; 0))</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: MOI not defined</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Check the status of the problem
+       problem.status # :Optimal, :Infeasible, :Unbounded etc.</code><code class="nohighlight hljs ansi" style="display:block;">OPTIMIZE_NOT_CALLED::TerminationStatusCode = 0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Get the optimum value
+       problem.optval</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../installation/">« Installation</a><a class="docs-footer-nextpage" href="../types/">Basic Types »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Wednesday 23 February 2022 04:02">Wednesday 23 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

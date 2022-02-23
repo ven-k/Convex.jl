@@ -6,7 +6,7 @@
   \text{minimize} &amp; \langle U, M \rangle \\
     \text{subject to} &amp; \text{diag}(U) = 1\\
     &amp; U \succeq 0
-\end{array}\]</p><p>Here the variable <span>$U$</span> must be hermitian (<span>$U \in \mathbb{H}_n $), and we have a solution to the phase recovery problem if $U = u u^*$</span> has rank one. Otherwise, the leading singular vector of <span>$U$</span> can be used to approximate the solution.</p><pre><code class="language-julia hljs">using Convex, SCS, LinearAlgebra
+\end{array}\]</p><p>Here the variable <span>$U$</span> must be hermitian (<span>$U \in \mathbb{H}_n $), and we have a solution to the phase recovery problem if $U = u u^*$</span> has rank one. Otherwise, the leading singular vector of <span>$U$</span> can be used to approximate the solution.</p><pre><code class="language- hljs">using Convex, SCS, LinearAlgebra
 if VERSION &lt; v&quot;1.2.0-DEV.0&quot;
     (I::UniformScaling)(n::Integer) = Diagonal(fill(I.λ, n))
      LinearAlgebra.diagm(v::AbstractVector) = diagm(0 =&gt; v)
@@ -24,50 +24,10 @@ objective = inner_product(U,M)
 c1 = diag(U) == 1
 c2 = U in :SDP
 p = minimize(objective,c1,c2)
-solve!(p, () -&gt; SCS.Optimizer(verbose=0))
-evaluate(U)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">20×20 Array{Complex{Float64},2}:
-       1.0+4.7989e-8im    0.956308-0.292362im    …  -0.998327-0.0578209im
-  0.956308+0.292362im          1.0+4.70537e-8im     -0.937803-0.347168im 
-  0.594865+0.803826im     0.803882+0.594789im       -0.547392-0.836876im 
-  0.482366+0.875969im     0.717391+0.696671im        -0.43091-0.902394im 
-  0.990595+0.136828im     0.987317-0.158763im       -0.981026-0.193876im 
- -0.767393+0.641177im    -0.546408+0.837519im    …   0.803182-0.595732im 
- -0.360777+0.932652im   -0.0723419+0.99738im           0.4141-0.910231im 
- -0.934115+0.356971im    -0.788937+0.614475im        0.953192-0.302363im 
-  0.958386-0.285475im      0.83305-0.553198im       -0.973289+0.229583im 
-  0.984727+0.174104im     0.992603-0.1214im         -0.973012-0.23075im  
- -0.971014+0.239022im    -0.858708+0.512467im    …    0.98321-0.182477im 
-  0.764412+0.644727im     0.919508+0.393072im       -0.725855-0.687847im 
- -0.368793+0.929511im    -0.080926+0.99672im         0.421921-0.906632im 
-  0.982541+0.186044im     0.994004-0.109343im        -0.97014-0.242544im 
-  0.999264-0.0383637im    0.944388-0.328835im        -0.99981-0.0194788im
- -0.543259+0.839565im    -0.274066+0.961711im    …   0.590894-0.806748im 
- -0.793748+0.608247im    -0.581239+0.813733im        0.827589-0.561334im 
-  0.962797+0.270228im     0.999735-0.0230643im      -0.945561-0.325446im 
-  0.915074+0.403287im     0.992998+0.118133im       -0.890224-0.455522im 
- -0.998327+0.0578208im   -0.937803+0.347168im             1.0+4.5262e-9im</code></pre><p>Verify if the rank of <span>$U$</span> is 1:</p><pre><code class="language-julia hljs">B, C = eigen(evaluate(U));
-length([e for e in B if(abs(real(e))&gt;1e-4)])</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">1</code></pre><p>Decompose <span>$U = uu^*$</span> where <span>$u$</span> is the phase of <span>$Ax$</span></p><pre><code class="language-julia hljs">u = C[:,1];
+solve!(p, MOI.OptimizerWithAttributes(SCS.Optimizer, &quot;verbose&quot; =&gt; 0))
+evaluate(U)</code></pre><p>Verify if the rank of <span>$U$</span> is 1:</p><pre><code class="language- hljs">B, C = eigen(evaluate(U));
+length([e for e in B if(abs(real(e))&gt;1e-4)])</code></pre><p>Decompose <span>$U = uu^*$</span> where <span>$u$</span> is the phase of <span>$Ax$</span></p><pre><code class="language- hljs">u = C[:,1];
 for i in 1:n
     u[i] = u[i]/abs(u[i])
 end
-u</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">20-element Array{Complex{Float64},1}:
-   0.9627963803980921 - 0.2702279221182233im  
-   0.9997339841140059 + 0.023064279905011233im
-   0.7899498971913971 + 0.6131713952291814im  
-   0.7011321008223987 + 0.7130313998670532im  
-   0.9907158075103834 - 0.1359492138596214im  
-  -0.5655795161602852 + 0.8246937679526248im  
- -0.09532646101444085 + 0.9954460637475354im  
-  -0.8028991256511268 + 0.5961149167976392im  
-   0.8455872296662603 - 0.5338372757922951im  
-   0.9951395689003016 - 0.09847455716540086im 
-  -0.8702984668131623 + 0.49252469853060055im 
-   0.9101970196240822 + 0.4141755490941473im  
- -0.10389304794783155 + 0.9945884749926018im  
-   0.9962615941034642 - 0.08638770812114806im 
-   0.9517206614131934 - 0.3069654420928087im  
-  -0.2961738114207656 + 0.9551340604483209im  
-   -0.599852389274761 + 0.8001106867686248im  
-                  1.0 + 0.0im                 
-   0.9900089673900093 + 0.14100441300671243im 
-  -0.9455607997216524 + 0.3254455008595892im  </code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Fidelity in Quantum Information Theory/">« Fidelity in quantum information theory</a><a class="docs-footer-nextpage" href="../povm_simulation/">POVM simulation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Wednesday 23 February 2022 02:35">Wednesday 23 February 2022</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+u</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Fidelity in Quantum Information Theory/">« Fidelity in quantum information theory</a><a class="docs-footer-nextpage" href="../povm_simulation/">POVM simulation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.12 on <span class="colophon-date" title="Wednesday 23 February 2022 04:02">Wednesday 23 February 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
