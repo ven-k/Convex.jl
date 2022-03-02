@@ -18,11 +18,11 @@ risk = sum(quadform(w, Sigma_nom));
 problem = minimize(risk, [sum(w) == 1, ret &gt;= 0.1, norm(w, 1) &lt;= 2])
 solve!(problem, SCS.Optimizer; silent_solver = true)
 wval = vec(evaluate(w))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">5-element Vector{Float64}:
- -0.25868837106019793
-  0.5390192449445208
- -0.24138243785264787
-  0.751322561242191
-  0.2097292076834425</code></pre><p>Form and solve worst-case risk analysis problem.</p><pre><code class="language-julia hljs">Sigma = Semidefinite(n);
+ -0.258688371060198
+  0.5390192449445214
+ -0.24138243785264832
+  0.7513225612421903
+  0.20972920768344408</code></pre><p>Form and solve worst-case risk analysis problem.</p><pre><code class="language-julia hljs">Sigma = Semidefinite(n);
 Delta = Variable(n, n);
 risk = sum(quadform(wval, Sigma));
 problem = maximize(
@@ -47,4 +47,4 @@ println(&quot;worst-case Delta = &quot;);
 println(round.(evaluate(Delta), sigdigits = 2));</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">standard deviation = 0.27
 worst-case standard deviation = 0.82
 worst-case Delta =
-[-7.0e-9 -0.2 0.19 -0.2 -0.2; -0.2 8.2e-10 -0.2 0.2 0.2; 0.19 -0.2 -1.1e-8 -0.2 -0.2; -0.2 0.2 -0.2 1.3e-9 0.2; -0.2 0.2 -0.2 0.2 7.7e-10]</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../trade_off_curves/">« Trade-off curves</a><a class="docs-footer-nextpage" href="../../mixed_integer/binary_knapsack/">Binary (or 0-1) knapsack problem »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.13 on <span class="colophon-date" title="Wednesday 2 March 2022 01:02">Wednesday 2 March 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+[-7.0e-9 -0.2 0.19 -0.2 -0.2; -0.2 8.2e-10 -0.2 0.2 0.2; 0.19 -0.2 -1.1e-8 -0.2 -0.2; -0.2 0.2 -0.2 1.3e-9 0.2; -0.2 0.2 -0.2 0.2 7.7e-10]</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../trade_off_curves/">« Trade-off curves</a><a class="docs-footer-nextpage" href="../../mixed_integer/binary_knapsack/">Binary (or 0-1) knapsack problem »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.13 on <span class="colophon-date" title="Wednesday 2 March 2022 01:32">Wednesday 2 March 2022</span>. Using Julia version 1.6.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
