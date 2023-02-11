@@ -22,7 +22,7 @@ c2 = U in :SDP
 p = minimize(objective, c1, c2)
 solve!(p, SCS.Optimizer; silent_solver = true)
 evaluate(U)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">20×20 Matrix{ComplexF64}:
-        1.0-4.57806e-20im  …  -0.504648-0.863327im
+        1.0+7.55052e-19im  …  -0.504648-0.863327im
    0.162026+0.986788im         0.770152-0.63786im
   -0.882302+0.470687im         0.851607+0.524182im
    0.501735+0.865023im         0.493597-0.869691im
@@ -41,29 +41,29 @@ evaluate(U)</code></pre><pre class="documenter-example-output"><code class="nohi
    0.725339+0.688394im         0.228267-0.973599im
   -0.269198+0.963086im         0.967306-0.253613im
    0.988531+0.151026im        -0.368474-0.929638im
-  -0.504648+0.863327im              1.0-1.38136e-17im</code></pre><p>Verify if the rank of <span>$U$</span> is 1:</p><pre><code class="language-julia hljs">B, C = eigen(evaluate(U));
+  -0.504648+0.863327im              1.0+3.64801e-18im</code></pre><p>Verify if the rank of <span>$U$</span> is 1:</p><pre><code class="language-julia hljs">B, C = eigen(evaluate(U));
 length([e for e in B if (abs(real(e)) &gt; 1e-4)])</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">1</code></pre><p>Decompose <span>$U = uu^*$</span> where <span>$u$</span> is the phase of <span>$Ax$</span></p><pre><code class="language-julia hljs">u = C[:, 1];
 for i in 1:n
     u[i] = u[i] / abs(u[i])
 end
 u</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">20-element Vector{ComplexF64}:
-                   1.0 + 0.0im
-   -0.0923982983990853 - 0.9957221271283236im
-    0.8903963583163247 - 0.4551860335039149im
-  -0.41129425337161774 - 0.9115026259663125im
-   -0.9127652246338679 - 0.40848457094373164im
-  -0.32885335653424835 - 0.9443809982714384im
- -0.061645058037556634 - 0.9980981348642759im
-     0.834763961670643 - 0.5506079624341924im
-   -0.9757947270692604 + 0.21868847848898548im
-    0.8443161993353596 - 0.5358452720141266im
-   -0.9332421231036275 - 0.3592480197092726im
-    0.7875162490244894 - 0.6162938889218345im
-   0.14979044055232857 - 0.9887177675753275im
-    0.6988670155147231 + 0.7152516302851354im
-    0.5188761222166154 - 0.8548494427637231im
-  -0.23490767882358335 + 0.9720176862741317im
-    -0.887712389689106 - 0.46039842874672887im
-     0.264931471694257 - 0.9642672426801168im
-   -0.9837028013847091 - 0.1798021094088597im
-    0.5391535115031165 - 0.8422075106729094im</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Fidelity in Quantum Information Theory/">« Fidelity in quantum information theory</a><a class="docs-footer-nextpage" href="../povm_simulation/">POVM simulation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Friday 10 February 2023 23:27">Friday 10 February 2023</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+                  1.0 + 0.0im
+ -0.09175555149693129 - 0.9957815617742146im
+   0.8912187264967613 - 0.45357378841980184im
+ -0.41067952891056836 - 0.9117797565935502im
+  -0.9130568192574938 - 0.4078323734175452im
+ -0.32745814496776127 - 0.9448656853194917im
+ -0.06424351576687772 - 0.9979342516829007im
+   0.8346692370304013 - 0.5507515453950972im
+  -0.9757999777376789 + 0.2186650485266112im
+   0.8439245644907019 - 0.5364618620640046im
+  -0.9331303411770242 - 0.3595382683037375im
+   0.7879753519110377 - 0.6157067847447162im
+  0.15099399997780785 - 0.9885346791947676im
+   0.6988454719007694 + 0.7152726797549245im
+   0.5163419130322212 - 0.8563825248370183im
+ -0.23621838693395777 + 0.9716999915994231im
+  -0.8881820087718857 - 0.459491805469845im
+  0.26376364439593786 - 0.9645873417658835im
+  -0.9836102203185894 - 0.1803078880271639im
+   0.5384329451123314 - 0.8426683592123659im</code></pre><hr/><p><em>This page was generated using <a href="https://github.com/fredrikekre/Literate.jl">Literate.jl</a>.</em></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../Fidelity in Quantum Information Theory/">« Fidelity in quantum information theory</a><a class="docs-footer-nextpage" href="../povm_simulation/">POVM simulation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Saturday 11 February 2023 01:32">Saturday 11 February 2023</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
