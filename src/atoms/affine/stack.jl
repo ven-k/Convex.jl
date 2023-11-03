@@ -113,11 +113,11 @@ end
 # * `Value` is not owned by Convex.jl
 # * splatting creates zero-argument functions, which again are not owned by Convex.jl
 
-hcat(args::AbstractExpr...) = HcatAtom(args...)
-function hcat(args::AbstractExprOrValue...)
+Base.hcat(args::AbstractExpr...) = HcatAtom(args...)
+function Base.hcat(args::AbstractExprOrValue...)
     return HcatAtom(map(arg -> convert(AbstractExpr, arg), args)...)
 end
-hcat(args::Value...) = Base.cat(args..., dims = Val(2))
+Base.hcat(args::Value...) = Base.cat(args..., dims = Val(2))
 
 # TODO: implement vertical concatenation in a more efficient way
 vcat(args::AbstractExpr...) = transpose(HcatAtom(map(transpose, args)...))
