@@ -108,16 +108,10 @@ function conic_form!(x::HcatAtom, unique_conic_forms::UniqueConicForms)
     return get_conic_form(unique_conic_forms, x)
 end
 
-# TODO: fix piracy!
-
-# * `Value` is not owned by Convex.jl
-# * splatting creates zero-argument functions, which again are not owned by Convex.jl
-
 hcat(args::AbstractExpr...) = HcatAtom(args...)
 function hcat(args::AbstractExprOrValue...)
     return HcatAtom(map(arg -> convert(AbstractExpr, arg), args)...)
 end
-hcat(args::Value...) = Base.cat(args..., dims = Val(2))
 
 # TODO: implement vertical concatenation in a more efficient way
 vcat(args::AbstractExpr...) = transpose(HcatAtom(map(transpose, args)...))
@@ -126,7 +120,6 @@ function vcat(args::AbstractExprOrValue...)
         HcatAtom(map(arg -> transpose(convert(AbstractExpr, arg)), args)...),
     )
 end
-vcat(args::Value...) = Base.cat(args..., dims = Val(1)) # Note: this makes general vcat slower for anyone using Convex...
 
 function hvcat(rows::Tuple{Vararg{Int}}, args::AbstractExprOrValue...)
     nbr = length(rows)
